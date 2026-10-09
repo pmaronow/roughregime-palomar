@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "algorithm": "sha256",
-  "source_fingerprint": "04d424672f8e6be14c35e709d335a60af565a343eee70721670ea48fe99f6ad4",
+  "source_fingerprint": "607a4876325f9b4e0023d387166c9dae08766e3cebdfc9e35488ac5f89d1e8ff",
   "excluded_directories": [
     ".git",
     ".lake",
@@ -26,8 +26,8 @@
     },
     {
       "path": "Audit.lean",
-      "bytes": 32038,
-      "sha256": "10655352da1fe55103f4e0cea30d19ce02a55085b666b5e480fd4b815b0be72e"
+      "bytes": 32287,
+      "sha256": "37e78e93532376a8464ec9d0c919a889cd5557c961a9ff72250b94194b335010"
     },
     {
       "path": "Challenge.lean",
@@ -46,13 +46,13 @@
     },
     {
       "path": "NumberedClaims.lean",
-      "bytes": 11489,
-      "sha256": "a7f3d06205f71d42c027f8b1025298ec9adfe31041d15b7574e1f4a7a863839b"
+      "bytes": 11774,
+      "sha256": "6d8ae5b75a205aa4e3af1e8db3bb46b889970cde7f9f7dc9180d28c5cbff2c73"
     },
     {
       "path": "README.md",
-      "bytes": 7431,
-      "sha256": "1bb41a49687d9da536c2b781723d1feb088bcb95bf07fe0ed0331355be11fd86"
+      "bytes": 8544,
+      "sha256": "2b4a64071712b2ca409208672184c6170697816e3413a6860690d59ab0995261"
     },
     {
       "path": "RoughRegime/AdmissibleComparisonUniform.lean",
@@ -3386,43 +3386,43 @@
     },
     {
       "path": "docs/boundary-regularity.md",
-      "bytes": 7393,
-      "sha256": "20238a604fb60b94bd762f59fec9ae1229cf742bddbae1b1807d132f85697608"
+      "bytes": 7391,
+      "sha256": "6148da9fa775a20ce57040aaad823275c18be8f5438eed4a77be86bd2cd61e24"
     },
     {
       "path": "docs/coverage.json",
-      "bytes": 45990,
-      "sha256": "cd7832e0e8d93e8695202bcee328676b6b5529960fbfe0a3c297d05898f1ab2a"
+      "bytes": 51479,
+      "sha256": "b433f644b7cc8b8a3b321b8b2002b44c9a928acd25a30463623e86b046ef4572"
     },
     {
       "path": "docs/coverage.md",
-      "bytes": 14606,
-      "sha256": "9cc10e26e5acdd03b03e584bc18747e01fa811e37325d3b2f78a7e2c8de591c6"
+      "bytes": 15323,
+      "sha256": "e7df38d635281b7490186045c22b4d2a2a71ab2a23def4ae73ca517c9d8d2c27"
     },
     {
       "path": "docs/fidelity.md",
-      "bytes": 13568,
-      "sha256": "38c9e6da8ae802aba73b7bbffc57916ae18ec7967f3fd58bfe580046d3459185"
+      "bytes": 13969,
+      "sha256": "48d400b2e9c45d7419e7565f13baedaa18703935e211b0747ae11ad27f491a24"
     },
     {
       "path": "docs/licenses.md",
-      "bytes": 1311,
-      "sha256": "b887d3075180bb0e55a83b3edb983c02ed2cf222d7705c7a86de57a56e773d15"
+      "bytes": 1923,
+      "sha256": "c7d7e93cf1b523846ef2f73b4abac01bcba2390ba01b169676f1c48cd486e00b"
     },
     {
       "path": "docs/numbered-checks.md",
-      "bytes": 1525,
-      "sha256": "8e008fad011709792b6e2c5773cdc56426ddd2aa43937667b71d13bb7a7eeea4"
+      "bytes": 3501,
+      "sha256": "cce42c3e7131947ee8235a4d4d2e9b194655f0cdd05b75f649ce318954116ccc"
     },
     {
       "path": "docs/provenance.md",
-      "bytes": 3340,
-      "sha256": "2cfdba770e914f0464289ee8d0187678cb57a45f0af7290ea5bdcab84c92681e"
+      "bytes": 5492,
+      "sha256": "91296e4186485198ebf00b23753e82996f6242340a59090b7a0427f20c6337a3"
     },
     {
       "path": "formalization.yaml",
-      "bytes": 6375,
-      "sha256": "ffd384569266a9fda7ad851e8dfeac819d88a96ba0990974fedc8d4c26b726c0"
+      "bytes": 7391,
+      "sha256": "854bef7fbe8fc81bf93ac410e7ffe122dac4c3a223ef937a0d8895ae751041b5"
     },
     {
       "path": "lake-manifest.json",
@@ -3456,23 +3456,18 @@
     },
     {
       "path": "scripts/requirements.txt",
-      "bytes": 779,
-      "sha256": "5144c14fbd798e2eb36ce329776b1c7f15f309f007f93003c30d29ddd9261536"
+      "bytes": 6219,
+      "sha256": "d0945965181cd332b903c63e407b0c906eac3a0a3c552c34d46e4061a3408db7"
     },
     {
       "path": "scripts/verify.py",
-      "bytes": 46018,
-      "sha256": "8adc57a68eb87209b52edc32c57b7e67d7a2866cab653b1e495fd8e96ff2560e"
+      "bytes": 49017,
+      "sha256": "1c74cc429d204745239b4fecb457e804bcc6e8461f7c46494ae4e652550f04f5"
     },
     {
       "path": "tools/README.md",
-      "bytes": 5487,
-      "sha256": "38375b60914b295b5bb74eac97c8545aa882983b65b11315584e9405361aced3"
-    },
-    {
-      "path": "tools/environment/proc-exe-shim.c",
-      "bytes": 453,
-      "sha256": "7cf231074f6e85f73a7d7fcd1e11cea0d5bcec7d3e611235fb671ca74bd4b9f3"
+      "bytes": 5176,
+      "sha256": "28da78eae1391e32633518ae5f911c404feeb3c242b93e0ed833edb93954faf7"
     },
     {
       "path": "tools/vendor/palomar/LICENSE",

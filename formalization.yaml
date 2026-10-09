@@ -20,14 +20,18 @@ classification:
 sources:
   - title: "Nearly Minimax Rates for Functional Estimation Under Rough Random Design"
     authors: ["P. M. Aronow", "Nathan Kallus", "Patrick Lopatto"]
-    id: "https://hexagonmath.org/2610.00157?version=1"
+    id: "https://hexagonmath.org/2610.00157v1"
     type: "paper"
     location: "Hexagon 2610.00157, version 1; source retained in paper/"
     relationship: "formalizes"
     note: >-
-      Mathematical source is the attached version 1 paper. Theorem 2.3(a) and
+      Mathematical source is the attached version 1 paper, compared with the
+      current version 1 source from Hexagon on 2026-10-09. Theorem 2.3(a) and
       (b) are selected for Comparator. Other numbered claims have an explicit
-      endpoint and scope map in docs/coverage.md. No source-author mathematical
+      endpoint and scope map in docs/coverage.md. The paper's Hexagon record
+      identifies CC BY 4.0; project MIT licensing applies to original code and
+      repository documentation, preserving the separate paper license and
+      vendored notices. No source-author mathematical
       review or endorsement is inferred from authorship or responsibility.
 status:
   scope: >-
@@ -38,6 +42,8 @@ status:
     are not counted as proofs. Cited attainment rates and background literature
     are outside the selected formal claims. Smooth-density refinements impose
     no uniform derivative bounds. The logarithmic gap is not resolved.
+    The sorry counts apply to the proved development and Solution dependencies;
+    Challenge contains exactly two intentional theorem placeholders.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -56,20 +62,30 @@ automation:
     - method: "agent"
       framework: "Codex"
       tool_setup: >-
-        Subsequent local repository preparation, standalone Challenge/Solution
-        interface, compiler and module-system compatibility, metadata,
-        licensing, documentation, reproducible verification tools, and
-        subsequent finite-order boundary-extension, coordinate-reconstruction,
-        and ordinary-partial-to-Frechet proofs establishing equivalence with the
-        literal Holder definition
+        Retained prior Codex work attributed by the supplied provenance:
+        standalone Challenge/Solution interface, earlier compiler and
+        module-system compatibility, and finite-order boundary-extension,
+        coordinate-reconstruction, and ordinary-partial-to-Frechet proofs
+        establishing equivalence with the literal Holder definition.
+        These proofs were already present in the supplied development.
+    - method: "agent"
+      framework: "Codex"
+      tool_setup: >-
+        Current local repository and archive preparation, source reconciliation
+        with the current paper and Palomar contract, metadata, licensing,
+        public documentation, dependency-installation reproducibility, and
+        verification-tool preparation, retaining the mathematical statements
+        and substantive proof development
     - method: "agent"
       framework: "Codex"
       tool_setup: >-
         Distinct automated mathematical-fidelity and numbered-claim review,
         source and dependency inspection, and mechanical verification review
   notes: >-
-    The original autoformalization and subsequent preparation/review are
-    separate roles. Historical input build reports are not fresh verification.
+    Original autoformalization, retained prior Codex preparation, current local
+    preparation, and current automated review are separate roles. Earlier
+    Codex attribution follows the supplied provenance without reconstructing
+    production history. Historical input build reports are not fresh verification.
     Current completed checks and blockers are in docs/verification.json.
     Human mathematical review is not asserted.
 fidelity:

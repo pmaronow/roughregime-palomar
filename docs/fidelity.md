@@ -2,13 +2,19 @@
 
 ## Sources and status
 
-The authoritative mathematical paper is the separately attached Hexagon source:
+The authoritative mathematical paper is the retained Hexagon v1 source:
 [`paper/main.tex`](../paper/main.tex) and [`paper/body.tex`](../paper/body.tex). Its title is **Nearly
 Minimax Rates for Functional Estimation Under Rough Random Design** and its paper
 authors are **P. M. Aronow, Nathan Kallus, and Patrick Lopatto**. The selected result
 is **Theorem 2.3 (Minimax bounds)**, source label `thm:generic`, parts (a) and (b).
 The numbering and stable source labels here follow the retained paper. The auxiliary
 examples in the same chapter precede it.
+
+The source archive at [Hexagon 2610.00157v1](https://hexagonmath.org/2610.00157v1)
+was retrieved again on 9 October 2026. Its `main.tex` and `body.tex` are
+byte-for-byte identical to the retained files; their SHA-256 hashes are recorded
+in [provenance.md](provenance.md). This comparison identifies the reviewed
+mathematical version independently of historical verification reports.
 
 The formal source reviewed directly is `Model.lean`, `Rates.lean`, `ModelUpper.lean`,
 `ModelLower.lean`, and the supporting endpoints listed below. This is an automated source-statement review. Authorship and responsibility
@@ -170,7 +176,8 @@ in the public endpoint.
 
 ## Verification boundary
 
-No source-statement mismatch was identified for the two selected headline parts.
+No source-statement mismatch was identified for the two selected headline parts
+in the current v1 source.
 This semantic assessment does not substitute for building the final modules,
 Comparator comparison of concrete copied definitions, transitive axiom inspection,
 or the required independent kernel checks. The intentional Challenge sorries must

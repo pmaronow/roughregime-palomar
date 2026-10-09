@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "paper": {
     "title": "Nearly Minimax Rates for Functional Estimation Under Rough Random Design",
     "authors": [
@@ -11,7 +11,7 @@
     "body_sha256": "e2b0f98a4a9a799b68abb51049405967464300fc8ba1d43e91d2631c19f5b4b4",
     "numbering": "chapter-local, shared theorem/example/remark counter"
   },
-  "evidence_policy": "This is a source correspondence inventory, not a claim that existence of a declaration or a historical check proves its exact target. Challenge/Solution/Comparator identify the selected independently stated submission targets. The reproducible verification report records current build and kernel checks.",
+  "evidence_policy": "This is a source correspondence inventory, not a claim that existence of a declaration or a historical check proves its exact target. Challenge/Solution/Comparator identify the selected independently stated submission targets. The reproducible verification report records current build and kernel checks. Explicit typed checks cover only the listed declarations and clauses; the exact scale-logarithm identity is not itself an asymptotic log-risk theorem, and the Proposition 7.1 checks do not separately expand every prior-construction or arbitrary-smooth-function clause. Comparator independent-kernel replay covers the two submission theorems and their dependencies; the other numbered assignments have compiler and project-axiom evidence unless a separate replay is recorded.",
   "source_named_results": [
     {
       "id": "ex:mar",
@@ -34,7 +34,9 @@
         "RoughRegime.Causal.real_conditionalEffect_class_identification",
         "RoughRegime.Causal.real_armMean_potential_identification"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "ex:conditional",
@@ -66,7 +68,9 @@
         "RoughRegime.Causal.trial_transformed_conditional_eq_real_cate",
         "RoughRegime.Causal.trial_transformed_variance_eq_effect_heterogeneity"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "thm:generic",
@@ -91,7 +95,12 @@
         "RoughRegime.Model.model_bracket",
         "RoughRegime.Model.holderNorm_eq_classicalHolderNorm"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": [
+        "RoughRegimeVerification.theorem_2_3_a",
+        "RoughRegimeVerification.theorem_2_3_b"
+      ]
     },
     {
       "id": "rem:gap",
@@ -119,7 +128,9 @@
         "RoughRegime.LatticePriors.SourceModelFamily.blockConstant_poisson_comparison",
         "RoughRegime.LatticePriors.SourceModelFamily.blockConstant_target_statistics"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "rem:smooth-design",
@@ -160,7 +171,9 @@
         "RoughRegime.Applications.Products.nearlyUniform_quadratic_not_hoif",
         "RoughRegime.LatticePriors.SourceLatticeSetup.source_density_derivatives_unbounded"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "def:bracket",
@@ -184,7 +197,9 @@
         "RoughRegime.Model.UpperBracket",
         "RoughRegime.Model.Bracket"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "definition",
+      "exact_target_checks": []
     },
     {
       "id": "cor:applications",
@@ -230,7 +245,9 @@
         "RoughRegime.Model.Bracket.not_hoif_upper",
         "RoughRegime.Model.Parameters.nu_eq_two_of_le_one"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "lem:reciprocal",
@@ -252,7 +269,12 @@
         "RoughRegime.Upper.reciprocal_expansion_at_one",
         "RoughRegime.Upper.interval_reciprocal_angular"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": [
+        "RoughRegimeVerification.lemma_4_1",
+        "RoughRegimeVerification.lemma_4_1_at_one"
+      ]
     },
     {
       "id": "lem:matrix-approximation",
@@ -277,7 +299,9 @@
         "RoughRegime.Cauchy.polynomial_derivative_bound",
         "RoughRegime.KernelExpressions.real_affine_expression_truncations_uniform_radius"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "conditional_infrastructure",
+      "exact_target_checks": []
     },
     {
       "id": "lem:projection-polynomials",
@@ -301,7 +325,9 @@
         "RoughRegime.Model.ModelWitness.levelProjectionIncrement_eq",
         "RoughRegime.Model.uniform_projection_telescope_resolution_bias"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "lem:lift",
@@ -323,7 +349,9 @@
         "RoughRegime.LiftTranslation.covariance_derivative_term_zero_above_smaller_degree",
         "RoughRegime.Upper.polynomialLift_unbiased"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "lem:variance",
@@ -343,7 +371,9 @@
       "declarations": [
         "RoughRegime.LiftVariance.variance_polynomial_cell_lift_paper"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "lem:window-sum",
@@ -362,7 +392,11 @@
         "RoughRegime.Window.window_sum",
         "RoughRegime.Window.window_sum_finite_set"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": [
+        "RoughRegimeVerification.lemma_4_6"
+      ]
     },
     {
       "id": "lem:parametric-path",
@@ -383,7 +417,11 @@
         "RoughRegime.LowerMeasure.hellinger_with_seed",
         "RoughRegime.GeneralTesting.two_point_rmse_lower"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": [
+        "RoughRegimeVerification.lemma_5_1"
+      ]
     },
     {
       "id": "lem:poisson-comparison",
@@ -403,7 +441,9 @@
         "RoughRegime.PoissonMeasure.AdmissiblePhasePair.original_lemma11",
         "RoughRegime.PoissonMeasure.AdmissiblePhasePair.source_poisson_comparison"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "prop:reduction",
@@ -426,7 +466,9 @@
         "RoughRegime.LatticePriors.SourceModelFamily.source_family_rough_lower",
         "RoughRegime.Model.source_rough_minimax_lower"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "conditional_infrastructure",
+      "exact_target_checks": []
     },
     {
       "id": "lat:gate",
@@ -449,7 +491,11 @@
         "RoughRegime.LatticeFourier.poisson_sampling_summable",
         "RoughRegime.LatticeFourier.gate_weighted_rpow"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": [
+        "RoughRegimeVerification.lemma_6_1"
+      ]
     },
     {
       "id": "lem:lattice-priors",
@@ -474,7 +520,9 @@
         "RoughRegime.LatticePriors.construct_source_lattice_priors",
         "RoughRegime.LatticePriors.source_lattice_priors"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "prop:local-lower",
@@ -489,13 +537,18 @@
       "source_line_end": 3500,
       "source_file": "paper/body.tex",
       "classification": "proved_declaration_map",
-      "semantic_scope": "StandingData is an input structure, not a proof. Actual proved rough and parametric declarations preserve the supplied bounded mean-zero scores and both score alternatives. Rough target matching is required only on the selected hard laws. Parametric path is clipped outside the relevant neighborhood solely to define laws for every real parameter; near zero it is the literal affine path. Constants precede later containing classes, targets and additive offsets.",
+      "semantic_scope": "StandingData is an input structure, not a proof. Actual proved rough and parametric declarations preserve the supplied bounded mean-zero scores and both score alternatives. Rough target matching is required only on the selected hard laws. Parametric path is clipped outside the relevant neighborhood solely to define laws for every real parameter; near zero it is the literal affine path. Constants precede later containing classes, targets and additive offsets. The listed typed assignments check the two risk conclusions with this package; they do not independently expand every prior-construction or arbitrary-smooth-map clause of the full proposition.",
       "declarations": [
         "RoughRegime.LocalLower.StandingData.proposition15_rough",
         "RoughRegime.LocalLower.StandingData.proposition15_parametric"
       ],
       "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
-      "input_structure": "RoughRegime.LocalLower.StandingData"
+      "input_structure": "RoughRegime.LocalLower.StandingData",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": [
+        "RoughRegimeVerification.proposition_7_1_rough",
+        "RoughRegimeVerification.proposition_7_1_parametric"
+      ]
     },
     {
       "id": "lem:local",
@@ -517,7 +570,9 @@
         "RoughRegime.LatticePriors.SourceModelFamily.selected_germ_holder_budget",
         "RoughRegime.LatticePriors.SourceModelFamily.selected_germ_sup_littleO"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "def:hard",
@@ -535,7 +590,9 @@
       "declarations": [
         "RoughRegime.Model.HardAtScale"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "definition",
+      "exact_target_checks": []
     },
     {
       "id": "lem:hard-risk",
@@ -561,7 +618,9 @@
         "RoughRegime.Model.HardAtScale.eventually_risk",
         "RoughRegime.Model.HardAtScale.lowerBracket"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "conditional_infrastructure",
+      "exact_target_checks": []
     },
     {
       "id": "lem:reductions",
@@ -587,7 +646,9 @@
         "RoughRegime.Model.kernel_reduction",
         "RoughRegime.Model.kernel_hardness"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "conditional_infrastructure",
+      "exact_target_checks": []
     },
     {
       "id": "rem:combining-rates",
@@ -606,7 +667,9 @@
         "RoughRegime.RateCombination.finite_rate_sum_eventually_le",
         "RoughRegime.Model.finite_upperBracket_transfer"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "conditional_infrastructure",
+      "exact_target_checks": []
     },
     {
       "id": "lem:smooth-propensity-pilot",
@@ -624,7 +687,9 @@
       "declarations": [
         "RoughRegime.Applications.fixed_accuracy_smooth_pilot"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "ex:wald",
@@ -645,7 +710,9 @@
         "RoughRegime.Causal.RealIVData.class_instrument_positive",
         "RoughRegime.Causal.RealIVData.class_wald_weighted_conditional_complier"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "ex:conditional-wald",
@@ -665,7 +732,9 @@
         "RoughRegime.Causal.RealIVData.witness_ate_of_homogeneity",
         "RoughRegime.Causal.RealIVData.conditionalWald_actual_conditional_complier"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     },
     {
       "id": "ex:overlap-effect",
@@ -687,7 +756,9 @@
         "RoughRegime.Applications.Overlap.higher_beta_actual_overlap_conditions_differ",
         "RoughRegime.Causal.real_overlap_effect_potential_identification"
       ],
-      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "mathematical_role": "proved_result_correspondence",
+      "exact_target_checks": []
     }
   ],
   "expanded_application_results": [
@@ -970,7 +1041,15 @@
       "RoughRegime.Model.model_bracket"
     ],
     "conditional_infrastructure": "Proposition 5.3 and reduction/analytic lemmas prove implications with explicit hypotheses; those predicates or hypotheses alone do not establish the headline minimax bounds.",
-    "background": "Cited external efficiency, known-design/smooth-design, adaptive-estimator and concurrent-work results are background. This inventory does not assert independent formalization of those results."
+    "background": "Cited external efficiency, known-design/smooth-design, adaptive-estimator and concurrent-work results are background. This inventory does not assert independent formalization of those results.",
+    "input_structures": {
+      "RoughRegime.LocalLower.StandingData": "Finite-support baseline, positive baseline moment, smoothness/density parameters, bounded mean-zero supplied scores and their duality or diagonal identities. These are mathematical input hypotheses, not a risk conclusion.",
+      "RoughRegime.LatticePriors.SourceModelFamily": "Primitive baseline nondegeneracy, scores and scalar construction budgets. The Localized predicate states local-class membership of the concrete construction. Existence of a family satisfying it is proved from the input hypotheses; it is not assumed in the selected headline lower theorem."
+    },
+    "selected_hard_law_predicates": {
+      "RoughRegime.LatticePriors.SourceModelFamily.SelectedClassSequenceClaim": "Eventual membership of the concrete selected law image in the given class sequence, with construction-validity and response-smallness witnesses.",
+      "RoughRegime.LatticePriors.SourceModelFamily.SelectedTargetOffsetClaim": "Eventual equality T(P)=psi(P)+tstar on that selected law image. No assumption about minimax risk appears in this predicate."
+    }
   },
   "selected_submission_targets": [
     {
@@ -1015,6 +1094,9 @@
       "Solution"
     ],
     "does_not_import": "Challenge",
-    "remaining_inventory": "Statement-inspected mapping; existence checks alone do not establish exact target equivalence."
+    "remaining_inventory": "Statement-inspected mapping; existence checks alone do not establish exact target equivalence.",
+    "scale_identity_limitation": "scale_logarithm checks log(a_n) exactly for n>1; it does not itself prove the asymptotic log-minimax-risk formula of Remark 2.4.",
+    "proposition_7_1_scope": "Risk conclusions retaining the concrete supplied-score and constructed-family package; the complete prior-construction and arbitrary-smooth-function clauses are mapped separately, not independently expanded in this module.",
+    "independent_kernel_scope": "Comparator replays the two submission theorem proofs and their dependencies. Auxiliary typed assignments are compiler-checked and included in the project transitive-axiom inventory unless the report records additional replay."
   }
 }

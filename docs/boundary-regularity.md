@@ -124,7 +124,7 @@ audits transitive proof axioms. The actual completed checks, independent kernel
 results, and checked source fingerprint are in [verification.json](verification.json).
 
 An unsandboxed diagnostic result does not satisfy Palomar's protected verification
-requirement. The protected run remains subject to the recorded namespace blocker;
-a calculus equivalence theorem does not remove that environment restriction.
+requirement. The verification report records the current protected-run status
+and any environment blocker separately from the calculus equivalence theorems.
 Mathematical fidelity assessment and review of these additions are automated.
 Neither authorship nor these mechanical checks assert human mathematical review.

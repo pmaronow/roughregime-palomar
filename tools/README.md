@@ -7,6 +7,8 @@ directory. It does not publish, submit, or register anything.
 Use Python 3.11 or later and the exact Lean toolchain in `lean-toolchain`:
 
 ```bash
+python3 -m venv ../rough-regime-venv
+. ../rough-regime-venv/bin/activate
 python3 -m pip install --require-hashes -r scripts/requirements.txt
 lake exe cache get
 python3 scripts/verify.py --output ../verification-output
@@ -22,8 +24,8 @@ executables or unavailable sandbox support are blockers, not passes.
 The primary Comparator check first probes bubblewrap namespace creation with
 a ten-second bound. A rejected probe records its exit status and transcript
 and blocks that check before launching Lake. Passing this environment probe
-does not establish proof verification. The explicitly requested supplementary
-unsandboxed diagnostic skips the probe and cannot repair the primary status.
+does not establish proof verification. The optional supplementary unsandboxed
+diagnostic skips the probe and cannot repair the primary status.
 
 The checks cover:
 
@@ -36,8 +38,9 @@ The checks cover:
   transitive imports, resolved only to the pinned Lean core and canonical
   mathlib dependency closure.
 - Explicit Lake build targets for every regular submitted Lean source,
-  declaration coverage, any typed numbered-claim checks, and the transitive
-  axiom inventory including selected Solution theorem aliases.
+  the coverage map's paper hash and source labels/spans, compiler existence
+  checks for all mapped endpoints, the documented typed numbered-claim targets,
+  and the transitive axiom inventory including selected Solution theorem aliases.
 - Comparator using a temporary configuration that installs the toolchain's
   NanoDa and con-ron kernels alongside its Lean kernel. The submitted
   `comparator.json` never supplies `external_kernels`.
@@ -69,6 +72,11 @@ environment-specific `LD_PRELOAD` is recorded rather than silently omitted.
 Mechanical checks do not establish mathematical equivalence to the paper or
 human mathematical review. Numbered targets provide only the coverage their
 exact typed declarations assert. See the project's coverage documentation.
+The axiom collector uses compiler-generated transitive inventories for imported
+project and upstream declarations when available, with proof-body traversal as
+a fallback. Loading the actual project proof bodies does not disable those
+inventories. Comparator separately exports and replays the selected proofs and
+their dependencies through Lean and both required independent kernels.
 The local Markdown check verifies file destinations; it does not fetch
 external websites or validate fragment anchors.
 
@@ -78,17 +86,3 @@ MIT license. Its taxonomy data carry separate notices and MSC2020 licensing;
 see [vendor provenance](vendor/palomar/PROVENANCE.md) and
 [taxonomy license](vendor/palomar/taxonomies/LICENSE.md).
 
-## Recorded environment workaround
-
-This preparation environment exposes `/proc/self/exe` but fails reads of the
-numeric `/proc/<pid>/exe` path used by the toolchain to locate itself. The
-small [readlink shim source](environment/proc-exe-shim.c) records the exact
-workaround used for the local build. It redirects only that executable-path
-lookup; it does not alter Lean, proof terms, or kernel logic. Its compiled
-library and the toolchain are operational files outside the public source.
-The verifier never installs this workaround automatically. Ordinary Linux
-verification should use the unmodified toolchain without a preload.
-
-The local evidence records the preload binary hash and this environmental
-qualification. Bubblewrap namespace support remains a separate requirement;
-this shim does not provide it or complete a protected Comparator check.

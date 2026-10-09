@@ -30,6 +30,17 @@ kernel status belongs in the verification report. Other entries below remain
 semantic correspondence and declaration-existence inventory unless the
 verification report expressly records an additional exact type check.
 
+The exact scale-logarithm identity does not itself prove the asymptotic
+log-minimax-risk statement in Remark 2.4. The Proposition 7.1 typed checks
+expand the two risk conclusions and retain a concrete family package; they
+do not separately expand every prior-construction and arbitrary-smooth-map
+clause of that proposition. The supplied construction and smooth-germ results
+remain part of the broader correspondence map. See
+[`numbered-checks.md`](numbered-checks.md) for the precise typed-check list.
+Independent kernel checks through Comparator cover the two selected
+submission theorems and their dependencies. A project axiom inventory or
+compilation of an auxiliary typed check is a separate form of evidence.
+
 ## Selected headline theorem
 
 For positive dimension and smoothness indices, the generic observed-law model

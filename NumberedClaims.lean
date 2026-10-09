@@ -13,9 +13,14 @@ check states its mathematical target explicitly and supplies the existing
 proof at that type. It does not infer correctness from declaration names.
 
 Mechanically checked scope: Theorem 2.3(a,b); rate formulas and their exact
-logarithmic consequence; Lemma 4.1; Lemma 4.6; Lemma 5.1; Lemma 6.1; and the
+scale-logarithm identity; Lemma 4.1; Lemma 4.6; Lemma 5.1; Lemma 6.1; and the
 rough/parametric risk conclusions of Proposition 7.1. This is a selected
 subset of the broader semantic correspondence inventory.
+
+The scale-logarithm check does not by itself establish the paper's asymptotic
+log-minimax-risk formula. Proposition 7.1's typed checks retain its concrete
+family package, but do not separately expand its entire prior construction
+or arbitrary-smooth-function Holder-control clauses.
 
 Lemma 5.1 remains conditional on its density path and derivative hypotheses.
 Proposition 7.1 uses the explicit finite-response/supplied-score StandingData

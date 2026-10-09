@@ -1,6 +1,6 @@
 # Nearly minimax functional estimation under rough random design
 
-Lean formalization of **Nearly Minimax Rates for Functional Estimation Under Rough Random Design**, by **P. M. Aronow, Nathan Kallus, and Patrick Lopatto**. The formalization authors and responsible maintainers are **P. M. Aronow and Patrick Lopatto**.
+Lean formalization of [**Nearly Minimax Rates for Functional Estimation Under Rough Random Design**](https://hexagonmath.org/2610.00157v1), by **P. M. Aronow, Nathan Kallus, and Patrick Lopatto**. The formalization authors and responsible maintainers are **P. M. Aronow and Patrick Lopatto**.
 
 The project studies estimation of
 
@@ -45,18 +45,22 @@ These are nearly minimax bounds. The remaining logarithmic factor `(log n)^(ν/2
 
 ## Installation and verification
 
-Use Linux with Git, Python 3.11 or later, Elan, and bubblewrap (`bwrap`). Install the Python dependencies from [scripts/requirements.txt](scripts/requirements.txt). Elan selects the exact release in [lean-toolchain](lean-toolchain): **Lean 4.35.0-rc2**. Mathlib is pinned to **065356127b1dc0016f66b7283ce0ce2c4055aa55**; [lake-manifest.json](lake-manifest.json) pins its full dependency closure.
+Use Linux with Git, Python 3.11 or later, [Elan](https://github.com/leanprover/elan), and bubblewrap (`bwrap`) with permission to create namespaces. Install the Python dependencies from [scripts/requirements.txt](scripts/requirements.txt). Elan selects the exact release in [lean-toolchain](lean-toolchain): **Lean 4.35.0-rc2**. Mathlib is pinned to **065356127b1dc0016f66b7283ce0ce2c4055aa55**; [lake-manifest.json](lake-manifest.json) pins its full dependency closure.
 
 ```sh
+python3 -m venv ../rough-regime-venv
+. ../rough-regime-venv/bin/activate
 python3 -m pip install --require-hashes -r scripts/requirements.txt
 lake exe cache get
-python3 scripts/verify.py --static
+python3 scripts/verify.py --static-only
 python3 scripts/verify.py
 ```
 
-The verifier checks metadata and source limits, builds every submitted Lean source, checks the coverage endpoints, and audits transitive axiom dependencies. It runs the toolchain's Comparator with the bundled **NanoDa and con-ron** independent kernels enabled in a temporary protected configuration. Raw verification output is written outside the source tree. A failure or missing check returns a nonzero status; compilation alone is not a complete verification pass.
+The verifier checks metadata and source limits, builds every submitted Lean source, checks the coverage endpoints, and audits transitive axiom dependencies. It runs the toolchain's Comparator with the bundled **NanoDa and con-ron** independent kernels enabled in a temporary protected configuration. Raw verification output is written outside the source tree. A failure or missing check returns a nonzero status; compilation alone is not a complete verification pass. The static-only run always reports full verification as incomplete.
 
-The [verification record](docs/verification.json) states which checks actually completed and identifies the exact checked source content. It supersedes verification claims in the input archive. Mechanical proof checks do not establish source fidelity or human mathematical review.
+The [verification record](docs/verification.json) states which checks actually completed and identifies the exact checked source content through [docs/source-manifest.json](docs/source-manifest.json). It supersedes verification claims in the input archive. Mechanical proof checks do not establish source fidelity or human mathematical review. [tools/README.md](tools/README.md) explains the commands, environment requirements, and limits of the local checks.
+
+The local contract follows [PalomarSubmission at `d4e41c1`](https://github.com/PalomarRegistry/PalomarSubmission/tree/d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44), inspected on October 9, 2026. It requires the pinned toolchain and all three kernel checks. This implementation is newer than the tooling described in [PalomarPolicy at `96b034c`](https://github.com/PalomarRegistry/PalomarPolicy/blob/96b034cc31a72a63d4f4041911dce337a85c9a04/CONTRIBUTING.md). Passing these local checks does not reproduce Palomar's protected canonical-Challenge service or establish registry approval.
 
 To compile the paper separately, run `latexmk -pdf main.tex` from `paper/` using a TeX installation with the packages named in its preamble.
 
@@ -72,6 +76,6 @@ Review recorded for this preparation is **automated review by Codex**. Authorshi
 
 ## Attribution and licensing
 
-**Sol 6.1 autoformalized the original development.** Subsequent **Codex preparation and compatibility work**, including the calculus, tensor, and boundary proofs establishing literal-definition equivalence, and **Codex automated review** are disclosed separately in [docs/provenance.md](docs/provenance.md) and [formalization.yaml](formalization.yaml).
+**Sol 6.1 autoformalized the original development.** The supplied provenance attributes later compatibility and calculus, tensor, and boundary bridge work to **Codex**. Those proofs were already present in the supplied development. This repository's current **Codex preparation** and **Codex automated review** are disclosed separately in [docs/provenance.md](docs/provenance.md) and [formalization.yaml](formalization.yaml).
 
-Original repository code and documentation are licensed under the **MIT License** in [LICENSE](LICENSE). The supplied paper remains attributed to its three authors; this repository does not change its publication rights. External dependencies and vendored verification tools retain their own licenses and notices, listed in [docs/licenses.md](docs/licenses.md).
+Original repository code and documentation are licensed under the **MIT License** in [LICENSE](LICENSE). The unchanged paper source remains attributed to its three authors under **CC BY 4.0**, as identified by its Hexagon version 1 record. External dependencies and vendored verification tools retain their own licenses and notices, listed in [docs/licenses.md](docs/licenses.md).

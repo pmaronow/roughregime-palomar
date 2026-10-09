@@ -675,9 +675,10 @@ depends on an axiom beyond Lean/mathlib's standard logical foundations. It
 also emits a machine-readable inventory of the checked theorem declarations.
 Local `import all` imports retain actual project theorem bodies; the audit
 checks their theorem kind, module origins, and absence of project axioms.
-For external dependencies, collectAxioms uses Lean's compiler-generated
-transitive axiom inventories from the pinned canonical upstream build. This
-is not a replay of every private Mathlib proof body. Comparator's independent
+For imported project and external declarations, collectAxioms uses Lean's
+compiler-generated transitive axiom inventories when present, with body
+traversal as a fallback. Loading actual project bodies does not disable those
+inventories. This is not a replay of every private proof body. Comparator's independent
 kernel checks separately replay the selected proofs and their dependencies.
 Neither the theorem count nor this check establishes coverage of the paper;
 the separate correspondence and semantic reviews establish source coverage. -/
@@ -730,6 +731,7 @@ run_cmd do
     ("schema_version", toJson (1 : Nat)),
     ("project_module_count", toJson projectModules.size),
     ("genuine_project_proof_bodies_loaded", toJson true),
+    ("local_dependency_axiom_method", toJson "compiler-generated transitive inventories for imported project declarations when present; body traversal fallback"),
     ("external_dependency_axiom_method", toJson "canonical upstream compiler-generated transitive axiom inventories"),
     ("theorem_count", toJson rows.size),
     ("axiom_audit_passed", toJson true),

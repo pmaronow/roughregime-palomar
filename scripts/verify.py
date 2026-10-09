@@ -433,6 +433,30 @@ class Verifier:
 
     def coverage(self):
         if not (self.root / "CoverageCheck.lean").is_file(): raise ValueError("missing CoverageCheck.lean")
+        mapping = json.loads((self.root / "docs" / "coverage.json").read_text(), object_pairs_hook=unique_object)
+        paper_path = self.root / mapping["paper"]["body_path"]
+        if not paper_path.resolve().is_relative_to(self.root) or not paper_path.is_file():
+            raise ValueError("coverage paper source leaves or is missing from the repository")
+        if digest(paper_path.read_bytes()) != mapping["paper"]["body_sha256"]:
+            raise ValueError("coverage mapping describes a different paper revision")
+        source_lines = paper_path.read_text(encoding="utf-8").splitlines()
+        mapped = set()
+        for row in mapping["source_named_results"]:
+            start, end = row["source_line_start"], row["source_line_end"]
+            if row["source_file"] != mapping["paper"]["body_path"] or not (
+                    isinstance(start, int) and isinstance(end, int) and 1 <= start <= end <= len(source_lines)):
+                raise ValueError(f"invalid coverage source span: {row['id']}")
+            span = "\n".join(source_lines[start-1:end])
+            for label in row["source_labels"]:
+                if "\\label{" + label + "}" not in span:
+                    raise ValueError(f"coverage source span omits label: {label}")
+            mapped.update(row.get("declarations", []))
+        for row in mapping["expanded_application_results"]:
+            mapped.update(row.get("lean_declarations", []))
+        checked = set(re.findall(r"^\s*#check\s+(\S+)",
+            strip_lean_noncode((self.root / "CoverageCheck.lean").read_text(encoding="utf-8")), re.M))
+        if mapped - checked:
+            raise ValueError("coverage declarations lack compiler existence checks: " + ", ".join(sorted(mapped-checked)))
         self.require_command(["lake", "env", "lean", "CoverageCheck.lean"], label="coverage")
         numbered = self.root / "NumberedClaims.lean"
         numbered_checks = []
@@ -456,10 +480,20 @@ class Verifier:
             declarations = set(re.findall(r"\btheorem\s+([A-Za-z_][A-Za-z0-9_']*)", code))
             if set(targets) - declarations:
                 raise ValueError("numbered target module is missing expected typed declarations: " + ", ".join(sorted(set(targets)-declarations)))
+            documented = mapping["explicit_typed_check_module"]
+            if documented["path"] != "NumberedClaims.lean" or set(
+                    documented["substantive_checks"] + documented["definitional_normalization_checks"]) != set(targets):
+                raise ValueError("documented numbered target checks differ from the verifier's explicit target inventory")
+            for row in mapping["source_named_results"]:
+                if not set(row.get("exact_target_checks", [])) <= {
+                        "RoughRegimeVerification." + name for name in targets}:
+                    raise ValueError(f"unknown documented exact target check: {row['id']}")
             numbered_checks = [{"declaration": "RoughRegimeVerification." + name,
                                 "target_scope": scope, "classification": classification}
                                for name, (scope, classification) in targets.items()]
-        return {"declaration_inventory_checked": True, "numbered_claims_exact_target_check": numbered.is_file(),
+        return {"declaration_inventory_checked": True, "paper_source_sha256": digest(paper_path.read_bytes()),
+            "source_spans_and_labels_checked": len(mapping["source_named_results"]),
+            "mapped_declarations_checked": len(mapped), "numbered_claims_exact_target_check": numbered.is_file(),
             "named_typed_checks": numbered_checks,
             "numbered_claims_scope": "only the explicit typed declarations in NumberedClaims.lean; other coverage table rows are not mechanically certified by this check" if numbered.is_file() else "no NumberedClaims.lean target check ran; selected headline type comparison belongs to Comparator",
             "limitation": "inventory existence is not semantic equivalence; only typed exact-target declarations establish the respective numbered targets"}
@@ -489,6 +523,8 @@ class Verifier:
                 raise ValueError("axiom audit theorem inventory is empty or inconsistent")
             if payload.get("external_dependency_axiom_method") != "canonical upstream compiler-generated transitive axiom inventories":
                 raise ValueError("axiom audit lacks the external dependency-method qualification")
+            if payload.get("local_dependency_axiom_method") != "compiler-generated transitive inventories for imported project declarations when present; body traversal fallback":
+                raise ValueError("axiom audit lacks the imported-project inventory qualification")
             for row in payload.get("theorems", []):
                 if not set(row["axioms"]) <= STANDARD_AXIOMS: raise ValueError(f"forbidden transitive axiom: {row['theorem']}")
         config = comparator_config(self.root)
@@ -502,6 +538,7 @@ class Verifier:
         return {"project_module_count": sum(p.get("project_module_count", 0) for p in payloads),
             "theorem_count": sum(p.get("theorem_count", 0) for p in payloads),
             "genuine_project_proof_bodies_loaded": True,
+            "local_dependency_axiom_method": payloads[0]["local_dependency_axiom_method"],
             "external_dependency_axiom_method": payloads[0]["external_dependency_axiom_method"],
             "allowed_axioms": sorted(STANDARD_AXIOMS), "axiom_audit_passed": True,
             "external_full_inventory_sha256": digest(inventory.read_bytes()),
@@ -575,7 +612,7 @@ class Verifier:
                 raise Blocked(f"primary Comparator namespace preflight failed (exit {preflight.returncode}): {detail}")
         config = comparator_config(self.root)
         config.pop("enable_nanoda", None)
-        config["external_kernels"] = {"nanoda": [str(self.prefix / "bin" / "nanoda_bin")], "con-ron": [str(self.prefix / "bin" / "con-ron")]}
+        config["external_kernels"] = {"nanoda": [str(self.prefix / "bin" / "nanoda_bin")], "con-ron": [str(self.prefix / "bin" / "con-ron"), "--jobs=2"]}
         with tempfile.TemporaryDirectory(prefix="palomar-comparator-", dir=self.output) as tmp:
             path = Path(tmp) / "protected-comparator.json"
             write_json(path, config)
