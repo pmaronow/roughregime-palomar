@@ -39,6 +39,7 @@ These are nearly minimax bounds. The remaining logarithmic factor `(log n)^(ν/2
 | [formalization.yaml](formalization.yaml) | Mathematical scope, provenance, attribution, automation, and review |
 | [docs/coverage.md](docs/coverage.md) | Numbered paper claims and exact Lean endpoints |
 | [docs/fidelity.md](docs/fidelity.md) | Definitions, hypotheses, quantifiers, and proof-route qualifications |
+| [docs/boundary-regularity.md](docs/boundary-regularity.md) | Closed-cube convention, proved boundary bridge, and remaining interior translation |
 | [docs/provenance.md](docs/provenance.md) | Source identities and separate AI contribution disclosures |
 | [docs/verification.json](docs/verification.json) | Checks and source fingerprint for this prepared snapshot |
 
@@ -63,7 +64,9 @@ To compile the paper separately, run `latexmk -pdf main.tex` from `paper/` using
 
 The selected Comparator results are exactly Theorem 2.3(a) and (b). The broader development retains analytic, statistical, local lower-bound, application, and causal-interpretation modules; its [coverage map](docs/coverage.md) distinguishes proved endpoints from definitions and conditional infrastructure. Cited background and literature claims are not advertised as independently formalized results.
 
-Hölder smoothness uses order `ceil(t) − 1`, so integer smoothness means a Lipschitz highest derivative. Risk is represented in the extended nonnegative reals by the L2 norm. Randomization uses an independent uniform real seed; the development contains the bridge to real-output Markov estimators. Upper constants are uniform over observables with fixed magnitude bounds. Lower bounds retain the source's finite-support baseline, either nondegeneracy alternative, positive local radius, and class quantifiers. Smoothness is encoded by `ContDiffOn` and derivatives within the closed cube; the multi-index norm bridge shares that regularity convention. The positive `M0` parameter excludes inconsistent empty classes already ruled out by the source's nonempty-class condition.
+Hölder smoothness uses order `ceil(t) − 1`, so integer smoothness means a Lipschitz highest derivative. Risk is represented in the extended nonnegative reals by the L2 norm. Randomization uses an independent uniform real seed; the development contains the bridge to real-output Markov estimators. Upper constants are uniform over observables with fixed magnitude bounds. Lower bounds retain the source's finite-support baseline, either nondegeneracy alternative, positive local radius, and class quantifiers. The positive `M0` parameter excludes inconsistent empty classes already ruled out by the source's nonempty-class condition.
+
+Closed-cube derivatives are continuous extensions of interior derivatives. The [boundary bridge](docs/boundary-regularity.md) proves that continuous finite interior derivative jets yield exactly the encoded `ContDiffOn` regularity and within-cube coefficients, without changing the Hölder radius. Finite-coordinate reconstruction is also proved. The ordinary interior conversion from classical partials to Fréchet derivatives is mathematically explained but is not separately mechanized; full literal coordinate-definition equivalence is therefore not claimed as a completed Lean theorem.
 
 Review recorded for this preparation is **automated review by Codex**. Authorship and maintenance responsibility do not imply human review, peer review, or endorsement of any verification claim.
 

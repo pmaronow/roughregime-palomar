@@ -362,6 +362,8 @@ import all RoughRegime.ModelTargetCongruence
 import all RoughRegime.ModelUpper
 import all RoughRegime.ModelUpperConsequences
 import all RoughRegime.MultiIndexHolder
+import all RoughRegime.BoundaryRegularity
+import all RoughRegime.CoordinateJets
 import all RoughRegime.NativeSignBridge
 import all RoughRegime.NearlyUniformDesign
 import all RoughRegime.NormalizedOrientedPilotEstimator
@@ -688,8 +690,8 @@ run_cmd do
         mod == `Solution || mod == `NumberedClaims then
       if let some idx := env.getModuleIdx? mod then
         projectModules := projectModules.insert idx
-  unless projectModules.size == 662 do
-    throwError "Expected all 662 local proof modules, found {projectModules.size}"
+  unless projectModules.size == 664 do
+    throwError "Expected all 664 local proof modules, found {projectModules.size}"
   for mod in env.header.modules do
     if mod.module == `RoughRegime || "RoughRegime.".isPrefixOf mod.module.toString ||
         mod.module == `Solution || mod.module == `NumberedClaims then

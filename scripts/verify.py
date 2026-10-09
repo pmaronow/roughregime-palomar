@@ -163,14 +163,23 @@ class Verifier:
         self.counter = 0
 
     def command(self, argv: list[str], *, cwd: Path | None = None, label: str = "command",
-                timeout_seconds: int | None = None) -> subprocess.CompletedProcess:
+                timeout_seconds: int | None = None,
+                stdout_path: Path | None = None) -> subprocess.CompletedProcess:
         self.counter += 1
         log = self.output / f"{self.counter:03d}-{label}.log"
         start = time.monotonic()
         limit = self.timeout if timeout_seconds is None else timeout_seconds
         try:
-            proc = subprocess.run(argv, cwd=cwd or self.root, text=True, stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT, timeout=limit, check=False)
+            if stdout_path is None:
+                proc = subprocess.run(argv, cwd=cwd or self.root, text=True, stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT, timeout=limit, check=False)
+            else:
+                if not stdout_path.resolve().is_relative_to(self.output):
+                    raise ValueError("streamed command output must stay in the external evidence directory")
+                with stdout_path.open("w", encoding="utf-8") as handle:
+                    proc = subprocess.run(argv, cwd=cwd or self.root, text=True, stdout=handle,
+                        stderr=subprocess.PIPE, timeout=limit, check=False)
+                proc.stdout = proc.stderr or ""
         except (FileNotFoundError, PermissionError, subprocess.TimeoutExpired) as error:
             log.write_text(str(error) + "\n", encoding="utf-8")
             raise Blocked(f"{label} could not complete: {error}") from error
@@ -178,6 +187,9 @@ class Verifier:
         self.report.setdefault("commands", []).append({"argv": argv, "exit_code": proc.returncode,
             "timeout_seconds": limit,
             "elapsed_seconds": round(time.monotonic()-start, 3), "log_sha256": digest(log.read_bytes()), "log_file": log.name})
+        if stdout_path is not None:
+            self.report["commands"][-1]["streamed_stdout_sha256"] = digest(stdout_path.read_bytes())
+            self.report["commands"][-1]["streamed_stdout_bytes"] = stdout_path.stat().st_size
         return proc
 
     def require_command(self, argv: list[str], *, cwd: Path | None = None, label: str = "command") -> str:
@@ -495,6 +507,46 @@ class Verifier:
             "external_full_inventory_sha256": digest(inventory.read_bytes()),
             "selected_theorem_axioms": selected}
 
+    def boundary_kernel_diagnostic(self):
+        """Replay the additional boundary bridges; this is explicitly unsandboxed."""
+        module = "RoughRegime.BoundaryRegularity"
+        declarations = ["closure_interior_cube", "hasFDerivWithinAt_cube_of_interior_jet",
+            "interiorJet_iff_contDiffOn", "InteriorTaylorJet.ftaylorSeries",
+            "InteriorTaylorJet.contDiffOn", "InteriorTaylorJet.eq_iteratedFDerivWithin",
+            "InteriorTaylorJet.coordinate_eq", "holderNorm_eq_interiorJetHolderNorm",
+            "holderOrder_eq_zero_of_le_one", "holderRegularity_le_one_iff",
+            "coordinateEvaluation_injective", "continuousOn_coordinate_iff",
+            "coordinateTensor_apply", "coordinateEvaluation_reconstruction",
+            "coordinateReconstruction_evaluation", "continuousOn_coordinateReconstruction"]
+        names = ["RoughRegime.Model." + n for n in declarations]
+        # The same primitive roots used by the pinned Lake Comparator. These
+        # ensure that kernel primitive declarations travel with the export.
+        primitives = ["Nat.add", "Nat.sub", "Nat.mul", "Nat.pow", "Nat.gcd", "Nat.div",
+            "Nat.mod", "Nat.beq", "Nat.ble", "Nat.land", "Nat.lor", "Nat.xor",
+            "Nat.shiftLeft", "Nat.shiftRight", "String.ofList", "Char.ofNat", "List",
+            "eagerReduce", "Nat", "String", "String.mk", "Char", "optParam", "autoParam",
+            "semiOutParam", "outParam", "Quot", "Quot.mk", "Quot.lift", "Quot.ind"]
+        export = self.output / "boundary-bridges.ndjson"
+        proc = self.command(["lake", "env", str(self.prefix / "bin" / "leanexport"), module,
+            "--", *names, *sorted(STANDARD_AXIOMS), *primitives],
+            label="boundary-export", stdout_path=export)
+        if proc.returncode: raise ValueError(f"boundary exporter exited {proc.returncode}")
+        config = self.output / "boundary-nanoda.json"
+        write_json(config, {"use_stdin": False, "export_file_path": str(export),
+            "permitted_axioms": sorted(STANDARD_AXIOMS), "unpermitted_axiom_hard_error": True,
+            "num_threads": 4, "nat_extension": True, "string_extension": True})
+        for label, args in (
+            ("boundary-con-ron", ["con-ron", "--verified", "--jobs=4", str(export)]),
+            ("boundary-nanoda", ["nanoda_bin", str(config)]),
+            ("boundary-Lean", ["leanchecker", "--silent", "--from-export", str(export)])):
+            self.require_command([str(self.prefix / "bin" / args[0]), *args[1:]], label=label)
+        return {"module": module, "theorem_names": names,
+            "export_sha256": digest(export.read_bytes()), "export_bytes": export.stat().st_size,
+            "Lean_NanoDa_and_verified_con_ron_completed": True,
+            "supplementary_unsandboxed_diagnostic_only": True,
+            "Palomar_compliant_verification_claim": False,
+            "scope": "finite-order boundary and coordinate-reconstruction proofs; excludes the unmechanized ordinary interior partial-derivative criterion"}
+
     def comparator(self, *, diagnostic: bool = False):
         if not diagnostic and not shutil.which("bwrap"):
             raise Blocked("the primary Comparator check requires bwrap; no automatic unsandboxed fallback is permitted")
@@ -579,6 +631,8 @@ def main() -> int:
                 if args.diagnostic_comparator:
                     verifier.check("supplementary_unsandboxed_Comparator_diagnostic",
                                    lambda: verifier.comparator(diagnostic=True))
+                    verifier.check("supplementary_unsandboxed_boundary_bridge_kernels",
+                                   verifier.boundary_kernel_diagnostic)
             else:
                 for name in ("coverage_and_numbered_exact_targets", "all_project_and_selected_transitive_axioms", "Comparator_Lean_NanoDa_con_ron"):
                     verifier.report["checks"].append({"check": name, "status": "not_run", "reason": "a complete current-source build did not pass"})

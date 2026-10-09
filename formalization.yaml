@@ -58,7 +58,8 @@ automation:
       tool_setup: >-
         Subsequent local repository preparation, standalone Challenge/Solution
         interface, compiler and module-system compatibility, metadata,
-        licensing, documentation, and reproducible verification tools
+        licensing, documentation, reproducible verification tools, and
+        subsequent finite-order boundary-extension and coordinate-reconstruction proofs
     - method: "agent"
       framework: "Codex"
       tool_setup: >-
@@ -74,9 +75,13 @@ fidelity:
     No intended weakening of the selected generic theorem. The positive M0
     parameter excludes inconsistent empty magnitude-bound choices; meaningful
     nonempty source classes already imply M0 > 0. Holder regularity uses
-    ContDiffOn and derivatives within the closed cube; the multi-index bridge
-    shares this regularity gate and is not a separate theorem about every
-    informal boundary-partial interpretation. Statistical laws
+    ContDiffOn and derivatives within the closed cube. BoundaryRegularity proves
+    equivalence with continuous finite interior Frechet jets, including exact
+    boundary coefficients and unchanged Holder norm; CoordinateJets proves
+    finite-coordinate reconstruction and continuity. The standard ordinary
+    interior coordinate-partial-to-Frechet criterion is mathematically explained
+    but not separately mechanized; full literal coordinate-definition equivalence
+    is not claimed as a completed Lean theorem. Statistical laws
     use Euclidean covariates with measurable conditional-moment witnesses,
     extended-real L2 risk, and an independent uniform real seed for randomization.
     The development contains bridges to the multi-index Holder convention and

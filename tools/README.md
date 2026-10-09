@@ -49,6 +49,13 @@ Comparator run into a successful verification report. Use it only when that
 diagnostic is wanted. A local run does not reproduce Palomar's separate,
 protected canonical-Challenge compilation and submission sandbox.
 
+That option also exports the sixteen finite-order boundary and coordinate-jet
+bridge theorems from `RoughRegime.BoundaryRegularity` and replays their dependencies
+with Lean, NanoDa, and con-ron in `--verified` mode. This separate check is explicitly
+unsandboxed and is not part of the two-theorem submitted Comparator interface.
+Its export content hash and exact root declarations are recorded. It does not
+cover the unmechanized ordinary interior coordinate-partial criterion.
+
 The report records the exact source fingerprint, individual public file
 hashes, the available Git revision, binary hashes, command exit statuses, and
 external transcript hashes. The source fingerprint covers all public files

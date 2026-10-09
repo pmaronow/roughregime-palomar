@@ -57,15 +57,20 @@ nondegeneracy assumptions.
 
 The paper defines functions intrinsically on the cube; Lean represents globally
 measurable real functions and imposes all Hölder restrictions only within the cube.
-Values outside it are irrelevant. Relative differentiability is encoded by
-`ContDiffOn` and `iteratedFDerivWithin`. `MultiIndexHolder` proves exact equality of
-the ordered-coordinate norm and a canonical multi-index norm, including boundary
-symmetry and integer exponents. Both sides of that formal norm identity use the same
-`ContDiffOn` regularity gate. Thus this is a formal comparison of the two derivative
-indexing conventions, not a separate foundational theorem equating every possible
-informal interpretation of continuous cube-boundary partial derivatives with
-`ContDiffOn`. The closed-cube relative-derivative convention should be stated in public
-documentation; no C-infinity assumption is imposed on upper-bound regressions.
+Values outside it are irrelevant. Closed-cube partial derivatives mean the
+continuous extensions of ordinary interior mixed partials. `BoundaryRegularity`
+proves, for every finite order, that continuous interior derivative jets are
+equivalent to `ContDiffOn` on the cube, and that their coefficients equal
+`iteratedFDerivWithin` at every boundary point. `CoordinateJets` proves exact
+finite-coordinate tensor reconstruction and equivalence of coefficient and tensor
+continuity. `MultiIndexHolder` identifies ordered coordinate words with classical
+multi-indices, including integer exponents. The Hölder norm and radius are unchanged.
+The mathematical coordinate-partial correspondence and its precise formal coverage
+are detailed in [boundary-regularity.md](boundary-regularity.md). The ordinary
+interior theorem converting continuous classical coordinate partials to Fréchet
+derivatives is explained there but is not separately mechanized. No extra boundary
+smoothness, global smooth extension, or C-infinity assumption is imposed on
+upper-bound regressions.
 
 ## Upper theorem quantifiers and conclusion
 

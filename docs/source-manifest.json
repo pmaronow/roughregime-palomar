@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "algorithm": "sha256",
-  "source_fingerprint": "1fe182dfda611347ff2d2bdd29a7e7175fc15b983c33f45a31cf02d5e964e781",
+  "source_fingerprint": "aeaf2fd162e891207b681571be5d611b34268f2e8dfd196bfe76c973073b04d2",
   "excluded_directories": [
     ".git",
     ".lake",
@@ -26,8 +26,8 @@
     },
     {
       "path": "Audit.lean",
-      "bytes": 31879,
-      "sha256": "8a0ae13473088be7aa221aa251e932b569e1dc7a2ba5014ab0f7e90aa06a380b"
+      "bytes": 31959,
+      "sha256": "3079fcca7b48a59d86acfad1e7569686e9316ca0959da7fa9a1600d84ef8248d"
     },
     {
       "path": "Challenge.lean",
@@ -51,8 +51,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6754,
-      "sha256": "f4437ea17580d433fbab7bf1bf8cc7c4795e997839e7101bcc3dbed717852169"
+      "bytes": 7353,
+      "sha256": "46de0ae88176310c77a35b90fdb9b5b29f12c962c0b39722313d9a5d95440020"
     },
     {
       "path": "RoughRegime/AdmissibleComparisonUniform.lean",
@@ -560,6 +560,11 @@
       "sha256": "2151640ee8139ca4c3b7a3304d42cec94fa6bf5ace8b8fdd989044b0bbf79a05"
     },
     {
+      "path": "RoughRegime/BoundaryRegularity.lean",
+      "bytes": 7612,
+      "sha256": "9034a28dfab69831c593e0ff3752dd38046f64cbd1499848aaae2ab6d1310110"
+    },
+    {
       "path": "RoughRegime/BoxConvolution.lean",
       "bytes": 4023,
       "sha256": "d02537b3a184dc449abebdfe5bfd95cb326187253a4638298c5513a04c9289c9"
@@ -953,6 +958,11 @@
       "path": "RoughRegime/ConditionalWaldSmoothBracket.lean",
       "bytes": 1266,
       "sha256": "9ab9fa7e85479deafa3691fa9c2f47bd176218c7d3aa5682f8d79916404ac061"
+    },
+    {
+      "path": "RoughRegime/CoordinateJets.lean",
+      "bytes": 4026,
+      "sha256": "6af14a23c5ad66fa3d2c631c427f4d2877a452529be33741ea099a66d6fc4839"
     },
     {
       "path": "RoughRegime/CovariateObservables.lean",
@@ -3351,8 +3361,8 @@
     },
     {
       "path": "RoughRegime.lean",
-      "bytes": 22388,
-      "sha256": "247807575ab00c1e821f68f46f5ed550c73ae946c1fbf96ce7c6fb1d788be5c8"
+      "bytes": 22433,
+      "sha256": "753f9f747b09866170a8d55081df120982bc85d00420f3180b0ac31eb6482f78"
     },
     {
       "path": "Solution.lean",
@@ -3363,6 +3373,11 @@
       "path": "comparator.json",
       "bytes": 259,
       "sha256": "afcb44b2ae01bcf4c29a0e7a9c06c8b44d46be6e3971ef8b4ff795287d1c3eda"
+    },
+    {
+      "path": "docs/boundary-regularity.md",
+      "bytes": 6666,
+      "sha256": "c76da48954a7e3673f6ae105660187dab0c243f85fa095674217db40c326ec8a"
     },
     {
       "path": "docs/coverage.json",
@@ -3376,8 +3391,8 @@
     },
     {
       "path": "docs/fidelity.md",
-      "bytes": 12997,
-      "sha256": "f3c41a64ebb3511bbca7093f63e56025121ab48eafe0bc771e9024e3ab8a1a81"
+      "bytes": 13322,
+      "sha256": "bacefa367f17fc7a158687b1435620f379eb34157e33eb42af6abb27a7a7f37f"
     },
     {
       "path": "docs/licenses.md",
@@ -3391,13 +3406,13 @@
     },
     {
       "path": "docs/provenance.md",
-      "bytes": 2987,
-      "sha256": "475eb66fc96a07767dca08849c00bcc8bad986e2934db625e632b0df9d937569"
+      "bytes": 3219,
+      "sha256": "3858540a8725efc3352a175efa5f2e1b07a2a29554416d1c8e0d2d7f32f0ea23"
     },
     {
       "path": "formalization.yaml",
-      "bytes": 5753,
-      "sha256": "8f4c75a9c9e4af2012cccc02b85fce9018d267850c6094ca10a21e03b0fb8e52"
+      "bytes": 6164,
+      "sha256": "c317f6d372f0be20658b03910702672850d57a9f58396a72a9c06f5cbe8acaee"
     },
     {
       "path": "lake-manifest.json",
@@ -3436,13 +3451,13 @@
     },
     {
       "path": "scripts/verify.py",
-      "bytes": 40887,
-      "sha256": "88acca55d1f75985e8e3d2d37f72cd683428f8b57355b6b8af2aa46480f58ac6"
+      "bytes": 44889,
+      "sha256": "7c6be2d82931513e95369291406d45c4d000b7e1704e9da0874e266551d6ee95"
     },
     {
       "path": "tools/README.md",
-      "bytes": 4979,
-      "sha256": "06f39dd579f5c503cb7b41b04a7c406842b0969645607171320d0912a4344f56"
+      "bytes": 5458,
+      "sha256": "19a918641ea4afe1b1ad15fc792476cafef643b103f1d53792220f494234dece"
     },
     {
       "path": "tools/environment/proc-exe-shim.c",
