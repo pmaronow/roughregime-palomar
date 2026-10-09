@@ -59,7 +59,9 @@ automation:
         Subsequent local repository preparation, standalone Challenge/Solution
         interface, compiler and module-system compatibility, metadata,
         licensing, documentation, reproducible verification tools, and
-        subsequent finite-order boundary-extension and coordinate-reconstruction proofs
+        subsequent finite-order boundary-extension, coordinate-reconstruction,
+        and ordinary-partial-to-Frechet proofs establishing equivalence with the
+        literal Holder definition
     - method: "agent"
       framework: "Codex"
       tool_setup: >-
@@ -75,13 +77,15 @@ fidelity:
     No intended weakening of the selected generic theorem. The positive M0
     parameter excludes inconsistent empty magnitude-bound choices; meaningful
     nonempty source classes already imply M0 > 0. Holder regularity uses
-    ContDiffOn and derivatives within the closed cube. BoundaryRegularity proves
-    equivalence with continuous finite interior Frechet jets, including exact
-    boundary coefficients and unchanged Holder norm; CoordinateJets proves
-    finite-coordinate reconstruction and continuity. The standard ordinary
-    interior coordinate-partial-to-Frechet criterion is mathematically explained
-    but not separately mechanized; full literal coordinate-definition equivalence
-    is not claimed as a completed Lean theorem. Statistical laws
+    ContDiffOn and derivatives within the closed cube. LiteralHolder proves
+    equivalence with a genuine ordinary-coordinate-partial predicate, for all
+    finite orders, and exact equality with the literal sum-of-maxima Holder norm,
+    including its infinite-value cases. Ordinary interior partials have continuous
+    extensions to the cube; no differentiability outside the cube is required.
+    ContinuousPartials proves the interior partial-to-Frechet criterion;
+    CoordinateJets proves exact finite-coordinate reconstruction;
+    BoundaryRegularity proves the boundary passage. The Holder radius is unchanged.
+    Statistical laws
     use Euclidean covariates with measurable conditional-moment witnesses,
     extended-real L2 risk, and an independent uniform real seed for randomization.
     The development contains bridges to the multi-index Holder convention and

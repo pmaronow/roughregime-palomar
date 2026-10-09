@@ -1,108 +1,130 @@
 # Closed-cube Hölder regularity
 
 Let `Q = [0,1]^d`, `U = interior Q`, and `k = ceil(t)-1`. The paper's
-continuous partial derivatives on the closed cube are interpreted as the ordinary
-interior mixed partials, with continuous extensions to `Q`. Boundary derivatives
-therefore have the limits determined by the interior. This is the usual closed-cube
-convention; no differentiability of an arbitrary representative outside `Q` is
-required.
+continuous partial derivatives on the closed cube mean ordinary interior mixed
+partials with continuous extensions to `Q`. Boundary values are therefore the
+limits determined by the interior. No differentiability of a representative
+outside `Q` is required.
 
-Under this convention, the paper's regularity condition and the Lean condition
-`ContDiffOn ℝ k f Q` are mathematically equivalent. The boundary passage and the
-exact coordinate tensor reconstruction are now proved in Lean. The elementary
-interior theorem converting continuous classical partial derivatives to Fréchet
-derivatives is explained below but is not separately mechanized here. Consequently,
-this addition resolves the boundary extension issue without claiming that the
-literal coordinate-partial definition has a complete end-to-end Lean equivalence
-theorem.
+The literal coordinate-partial definition and the encoded `ContDiffOn ℝ k f Q`
+condition are equivalent in Lean, for every finite order and dimension. The
+proof identifies every derivative coefficient throughout `Q` and gives exact
+equality of the Hölder norms. It neither adds a boundary smoothness hypothesis
+nor changes the radius `H`.
+
+## Literal source predicate
+
+[LiteralHolder.lean](../RoughRegime/LiteralHolder.lean) defines coefficient fields
+`c q σ x`, where `q` is the derivative order and `σ : Fin q → Fin d` is an ordered
+word of coordinate indices. `CoordinatePartialJet k f c` requires only:
+
+- The order-zero field equals `f` on `Q`.
+- Every field through order `k` is continuous on `Q`.
+- For `q < k`, differentiating `c q σ` along the genuine one-dimensional curve
+  that updates coordinate `j` of an interior point gives
+  `c (q+1) (Fin.cons j σ)` at that point, expressed by `HasDerivAt`.
+
+There is no `ContDiffOn`, `HasFDerivAt`, or `iteratedFDerivWithin` hypothesis in
+this source predicate. Derivatives are required only in `U`; continuity determines
+their boundary extensions. `CoordinatePartialRegularity k f` is the existence of
+such a coefficient family.
+
+The ordered-word indexing expresses the usual requirement that all mixed
+partials through the stated order exist and are continuous. It does not assume
+mixed-partial symmetry. The proof subsequently derives symmetry and identifies
+these words with classical multi-indices. The norm uses the canonical
+`multiIndexWord` for each multi-index, so the indexing does not change the paper's
+maximum or its normalization.
 
 ## Mechanized statements
 
-[BoundaryRegularity.lean](../RoughRegime/BoundaryRegularity.lean) defines
-`InteriorJet k f` recursively. At order zero it is continuity on `Q`. At order
-`k+1` it requires continuity of `f` on `Q` and a derivative field `g` that has
-`InteriorJet k g`; `HasFDerivAt f (g x) x` is required only for `x` in `U`.
-There is no `ContDiffOn` assumption in this predicate and no assumed boundary
-derivative identity.
-
 | Declaration | Exact content |
 | --- | --- |
-| `interiorJet_iff_contDiffOn` | `InteriorJet k f ↔ ContDiffOn ℝ k f Q`, for every finite order, dimension, and normed real codomain |
-| `hasFDerivWithinAt_cube_of_interior_jet` | A continuous function and continuous interior derivative field give the same derivative within the cube at every point of the cube |
-| `InteriorTaylorJet.ftaylorSeries` | Continuous finite tensor jets with interior derivative linkage form genuine within-cube Taylor jets |
+| `coordinatePartialRegularity_iff_contDiffOn` | `CoordinatePartialRegularity k f ↔ ContDiffOn ℝ k f Q`, for every finite `k` and dimension |
+| `CoordinatePartialJet.coordinate_eq` | Each supplied ordinary partial through order `k` equals `coordinateDerivative f q σ` everywhere on `Q`, including boundary points |
+| `holderNorm_eq_literalHolderNorm` | The model's Hölder norm equals the literal partial-derivative sum-of-maxima norm exactly, including infinite values |
+| `interiorJet_iff_contDiffOn` | Continuous finite interior Fréchet jets are equivalent to `ContDiffOn` on `Q`, also for arbitrary normed real codomains |
+| `hasFDerivWithinAt_cube_of_interior_jet` | Continuous functions and continuous interior derivative fields give the same within-cube derivative at every point of `Q` |
 | `InteriorTaylorJet.eq_iteratedFDerivWithin` | Every supplied tensor coefficient through order `k` equals `iteratedFDerivWithin` on all of `Q` |
-| `InteriorTaylorJet.coordinate_eq` | Exact equality of supplied coordinate coefficients and the model's coordinate derivatives, including boundary values |
-| `holderNorm_eq_interiorJetHolderNorm` | Replacing the regularity gate by `InteriorJet` leaves the multi-index sum-of-maxima Hölder norm exactly unchanged, including the infinite-value case |
-| `holderRegularity_le_one_iff` | For `t ≤ 1`, the regularity gate is exactly continuity on `Q` |
+
+`literalDerivativeSup` is the maximum over orders `q ≤ k` and multi-indices of
+the supremum of the absolute coefficient on `Q`. `literalHolderSeminorm` is the
+maximum, at order `k`, of
+
+\[
+ \sup_{x\ne y\in Q}
+ \frac{|D^\nu f(x)-D^\nu f(y)|}{\|x-y\|_2^{t-k}}.
+\]
+
+For `t > 0`, `literalHolderNorm` adds these two quantities when the literal
+regularity predicate holds and gives infinity when it fails. The coefficient
+family is chosen existentially; the coefficient equality theorem makes its
+values on `Q` independent of that choice. The formal norm also assigns infinity
+to `t ≤ 0`, matching the model's existing extension of the paper's positive-order
+convention. Integer `t` still means Lipschitz derivatives of order `t-1`.
+For `0 < t ≤ 1`, regularity reduces exactly to continuity on `Q`.
+
+## Proof route
+
+[ContinuousPartials.lean](../RoughRegime/ContinuousPartials.lean) proves the
+interior calculus criterion from actual one-dimensional coordinate derivatives
+and continuity of their fields. It inducts over the finite number of coordinates,
+using Mathlib's `hasStrictFDerivAt_uncurry_coprod` for a binary product. The theorem
+first applies to finite coordinate products and then transfers through the
+continuous linear equivalence to Euclidean space. It derives a strict Fréchet
+derivative rather than assuming one.
 
 [CoordinateJets.lean](../RoughRegime/CoordinateJets.lean) proves that a multilinear
-tensor is determined by its finitely many coordinate-basis evaluations. It provides
-an explicit inverse reconstruction and proves that tensor continuity is equivalent
-to continuity of those scalar coefficients. This holds for every dimension and
-derivative order. Tensor reconstruction preserves the coefficients exactly; it
-does not replace the paper's maximum by an operator norm.
-
-## Mathematical correspondence with classical partials
-
-For a function with the paper's continuous partials, continuous first coordinate
-partials imply ordinary Fréchet differentiability in the open set `U`. One proof
-telescopes the increment along coordinate segments and applies the one-dimensional
-fundamental theorem of calculus. Subtracting
-`sum_j partial_j f(x) h_j` leaves a remainder bounded by
-`sum_j |h_j|` times the maximum oscillation of the partials near `x`.
-Continuity makes that oscillation tend to zero; the finite-dimensional inequality
-`sum_j |h_j| ≤ sqrt(d) norm(h)` gives the required small remainder. Applying this
-argument to successive partial derivatives gives the ordinary interior derivative
-tensors through order `k`. Equality of mixed partials follows from continuous
-differentiability in the interior.
-
-At each point of the closed cube assemble the continuous extended coefficients as
+tensor is determined by its finitely many coordinate-basis evaluations and
+provides the exact inverse reconstruction. Scalar coefficient continuity is
+equivalent to continuity of the tensor. In particular, the coefficient fields
+assemble as
 
 \[
  T_q(x)[v_1,\ldots,v_q]
  =\sum_{i_1,\ldots,i_q}
-    D_{i_1}\cdots D_{i_q}f(x)
+    c_q(i_1,\ldots,i_q,x)
     \prod_{r=1}^{q}(v_r)_{i_r}.
 \]
 
-For `q=0` this is the value of `f`. The finite-coordinate reconstruction theorem
-gives continuity of each `T_q` on `Q`. In the interior, the derivative of `T_q`
-is the appropriate currying of `T_(q+1)` for `q<k`.
+For `q=0` this is `f(x)`. Applying the interior calculus criterion to successive
+scalar fields, and differentiating this finite reconstruction, gives the interior
+link from `T_q` to the appropriate currying of `T_(q+1)`.
 
-The cube is closed and convex, with dense nonempty interior. The Mathlib theorem
-`hasFDerivWithinAt_closure_of_tendsto_fderiv` extends these identities to `Q`:
-continuity of `T_q` supplies the function limits, and continuity of `T_(q+1)`
-supplies the derivative limits. The explicit finite-jet theorem then gives
-`ContDiffOn` and identifies every `T_q` with the existing within-cube derivative.
+[BoundaryRegularity.lean](../RoughRegime/BoundaryRegularity.lean) then extends these
+identities to `Q`. The cube is closed and convex with dense interior; Mathlib's
+`hasFDerivWithinAt_closure_of_tendsto_fderiv` uses the continuous function and
+derivative limits to give the boundary derivatives. The resulting finite Taylor
+jet proves `ContDiffOn` and identifies all tensors with the model's iterated
+within-cube derivatives.
 
-Conversely, `ContDiffOn` restricts to ordinary smoothness in `U`, and its iterated
-within-cube derivatives are continuous on `Q` through order `k`. Their coordinate
-evaluations are precisely the continuous extensions of the interior partials.
-The existing [multi-index bridge](../RoughRegime/MultiIndexHolder.lean) identifies
-ordered coordinate words and classical multi-indices using derivative symmetry.
+Conversely, `ContDiffOn` gives continuous iterated within-cube derivatives through
+order `k`. Restricting to `U` and differentiating their coordinate evaluations
+gives the ordinary coordinate-update derivatives required by
+`CoordinatePartialJet`. This proves both directions of the regularity equivalence.
+[MultiIndexHolder.lean](../RoughRegime/MultiIndexHolder.lean) supplies the mixed-partial
+symmetry and equality between ordered-coordinate and multi-index maxima.
 
-All derivative values agree exactly. Norm equivalence is used only in proving
-continuity and differentiability; it does not inflate the Hölder radius `H` or
-change any rate, hypothesis, or conclusion. Integer `t` still means Lipschitz
-derivatives of order `t-1`. In particular, for `0<t≤1`, `k=0` and the correspondence
-already reduces exactly to continuity, without any positive-order conversion.
+All coefficients agree exactly. The proof does not replace the paper's maximum
+by an operator norm or use a norm-equivalence constant to enlarge `H`. No smooth
+global extension or Whitney extension theorem is used. These are subsequent Codex
+calculus, tensor, and boundary additions, separate from Sol 6.1's original
+autoformalization; the attributions are in [provenance.md](provenance.md).
 
-The pinned Mathlib boundary theorem is in
+The pinned Mathlib ingredients are in
+[FDeriv/Partial.lean](https://github.com/leanprover-community/mathlib4/blob/065356127b1dc0016f66b7283ce0ce2c4055aa55/Mathlib/Analysis/Calculus/FDeriv/Partial.lean)
+and
 [FDeriv/Extend.lean](https://github.com/leanprover-community/mathlib4/blob/065356127b1dc0016f66b7283ce0ce2c4055aa55/Mathlib/Analysis/Calculus/FDeriv/Extend.lean).
-No smooth global extension or Whitney extension theorem is used.
 
 ## Verification scope
 
 These additions preserve the selected Challenge and Solution statements and the
-supplied paper sources. The project axiom audit includes all their proof bodies.
-The verifier's optional diagnostic also exports these specific bridge declarations
-and checks them with Lean, NanoDa, and con-ron. As with the main Comparator diagnostic,
-an unsandboxed result does not satisfy Palomar's protected verification requirement.
-Actual check outcomes and the checked source fingerprint appear in
-[verification.json](verification.json).
+supplied paper sources. The project verifier builds submitted Lean sources and
+audits transitive proof axioms. The actual completed checks, independent kernel
+results, and checked source fingerprint are in [verification.json](verification.json).
 
-The remaining formal correspondence step is specifically the ordinary interior
-coordinate-partial-to-Fréchet criterion in arbitrary dimension. It is not an extra
-boundary hypothesis, a change of statistical model, or a mathematical obstruction
-identified in the selected theorem. The mathematical argument above is an automated
-assessment and does not assert human review.
+An unsandboxed diagnostic result does not satisfy Palomar's protected verification
+requirement. The protected run remains subject to the recorded namespace blocker;
+a calculus equivalence theorem does not remove that environment restriction.
+Mathematical fidelity assessment and review of these additions are automated.
+Neither authorship nor these mechanical checks assert human mathematical review.

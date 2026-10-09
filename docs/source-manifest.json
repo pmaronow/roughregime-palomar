@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "algorithm": "sha256",
-  "source_fingerprint": "aeaf2fd162e891207b681571be5d611b34268f2e8dfd196bfe76c973073b04d2",
+  "source_fingerprint": "04d424672f8e6be14c35e709d335a60af565a343eee70721670ea48fe99f6ad4",
   "excluded_directories": [
     ".git",
     ".lake",
@@ -26,8 +26,8 @@
     },
     {
       "path": "Audit.lean",
-      "bytes": 31959,
-      "sha256": "3079fcca7b48a59d86acfad1e7569686e9316ca0959da7fa9a1600d84ef8248d"
+      "bytes": 32038,
+      "sha256": "10655352da1fe55103f4e0cea30d19ce02a55085b666b5e480fd4b815b0be72e"
     },
     {
       "path": "Challenge.lean",
@@ -51,8 +51,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 7353,
-      "sha256": "46de0ae88176310c77a35b90fdb9b5b29f12c962c0b39722313d9a5d95440020"
+      "bytes": 7431,
+      "sha256": "1bb41a49687d9da536c2b781723d1feb088bcb95bf07fe0ed0331355be11fd86"
     },
     {
       "path": "RoughRegime/AdmissibleComparisonUniform.lean",
@@ -561,8 +561,8 @@
     },
     {
       "path": "RoughRegime/BoundaryRegularity.lean",
-      "bytes": 7612,
-      "sha256": "9034a28dfab69831c593e0ff3752dd38046f64cbd1499848aaae2ab6d1310110"
+      "bytes": 7623,
+      "sha256": "10bdbec4e5b7346bfb01e971ccdfc363607293823da45e98ef99afea9d9501b6"
     },
     {
       "path": "RoughRegime/BoxConvolution.lean",
@@ -958,6 +958,11 @@
       "path": "RoughRegime/ConditionalWaldSmoothBracket.lean",
       "bytes": 1266,
       "sha256": "9ab9fa7e85479deafa3691fa9c2f47bd176218c7d3aa5682f8d79916404ac061"
+    },
+    {
+      "path": "RoughRegime/ContinuousPartials.lean",
+      "bytes": 7949,
+      "sha256": "022245d5f108d921265d1c44bcfe521ded33443ca057fe81a5c8f8ac8aafeb2e"
     },
     {
       "path": "RoughRegime/CoordinateJets.lean",
@@ -1563,6 +1568,11 @@
       "path": "RoughRegime/LiftVariance.lean",
       "bytes": 43156,
       "sha256": "2b1a787d4b3f0ceaad93d300b37a3202493c385eaf642c3fd929455ce12aab39"
+    },
+    {
+      "path": "RoughRegime/LiteralHolder.lean",
+      "bytes": 15987,
+      "sha256": "9a66bb3c2db39d8a9fe91d3490595a0166e1caf699fe13007c122a2665474d97"
     },
     {
       "path": "RoughRegime/LocalLowerData.lean",
@@ -3361,8 +3371,8 @@
     },
     {
       "path": "RoughRegime.lean",
-      "bytes": 22433,
-      "sha256": "753f9f747b09866170a8d55081df120982bc85d00420f3180b0ac31eb6482f78"
+      "bytes": 22473,
+      "sha256": "a58382e3df6bff8bc24356872a23fb10fe9283fcc51a25e257e97ae254e2f924"
     },
     {
       "path": "Solution.lean",
@@ -3376,8 +3386,8 @@
     },
     {
       "path": "docs/boundary-regularity.md",
-      "bytes": 6666,
-      "sha256": "c76da48954a7e3673f6ae105660187dab0c243f85fa095674217db40c326ec8a"
+      "bytes": 7393,
+      "sha256": "20238a604fb60b94bd762f59fec9ae1229cf742bddbae1b1807d132f85697608"
     },
     {
       "path": "docs/coverage.json",
@@ -3391,8 +3401,8 @@
     },
     {
       "path": "docs/fidelity.md",
-      "bytes": 13322,
-      "sha256": "bacefa367f17fc7a158687b1435620f379eb34157e33eb42af6abb27a7a7f37f"
+      "bytes": 13568,
+      "sha256": "38c9e6da8ae802aba73b7bbffc57916ae18ec7967f3fd58bfe580046d3459185"
     },
     {
       "path": "docs/licenses.md",
@@ -3406,13 +3416,13 @@
     },
     {
       "path": "docs/provenance.md",
-      "bytes": 3219,
-      "sha256": "3858540a8725efc3352a175efa5f2e1b07a2a29554416d1c8e0d2d7f32f0ea23"
+      "bytes": 3340,
+      "sha256": "2cfdba770e914f0464289ee8d0187678cb57a45f0af7290ea5bdcab84c92681e"
     },
     {
       "path": "formalization.yaml",
-      "bytes": 6164,
-      "sha256": "c317f6d372f0be20658b03910702672850d57a9f58396a72a9c06f5cbe8acaee"
+      "bytes": 6375,
+      "sha256": "ffd384569266a9fda7ad851e8dfeac819d88a96ba0990974fedc8d4c26b726c0"
     },
     {
       "path": "lake-manifest.json",
@@ -3451,13 +3461,13 @@
     },
     {
       "path": "scripts/verify.py",
-      "bytes": 44889,
-      "sha256": "7c6be2d82931513e95369291406d45c4d000b7e1704e9da0874e266551d6ee95"
+      "bytes": 46018,
+      "sha256": "8adc57a68eb87209b52edc32c57b7e67d7a2866cab653b1e495fd8e96ff2560e"
     },
     {
       "path": "tools/README.md",
-      "bytes": 5458,
-      "sha256": "19a918641ea4afe1b1ad15fc792476cafef643b103f1d53792220f494234dece"
+      "bytes": 5487,
+      "sha256": "38375b60914b295b5bb74eac97c8545aa882983b65b11315584e9405361aced3"
     },
     {
       "path": "tools/environment/proc-exe-shim.c",

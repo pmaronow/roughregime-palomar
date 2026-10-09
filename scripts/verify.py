@@ -508,8 +508,8 @@ class Verifier:
             "selected_theorem_axioms": selected}
 
     def boundary_kernel_diagnostic(self):
-        """Replay the additional boundary bridges; this is explicitly unsandboxed."""
-        module = "RoughRegime.BoundaryRegularity"
+        """Replay boundary and literal-definition proofs, explicitly unsandboxed."""
+        module = "RoughRegime.LiteralHolder"
         declarations = ["closure_interior_cube", "hasFDerivWithinAt_cube_of_interior_jet",
             "interiorJet_iff_contDiffOn", "InteriorTaylorJet.ftaylorSeries",
             "InteriorTaylorJet.contDiffOn", "InteriorTaylorJet.eq_iteratedFDerivWithin",
@@ -517,8 +517,22 @@ class Verifier:
             "holderOrder_eq_zero_of_le_one", "holderRegularity_le_one_iff",
             "coordinateEvaluation_injective", "continuousOn_coordinate_iff",
             "coordinateTensor_apply", "coordinateEvaluation_reconstruction",
-            "coordinateReconstruction_evaluation", "continuousOn_coordinateReconstruction"]
+            "coordinateReconstruction_evaluation", "continuousOn_coordinateReconstruction",
+            "coordinateGradient_apply_basis", "reconstruction_curryLeft",
+            "hasFDerivAt_coordinateReconstruction", "coordinateJetSeries_zero",
+            "CoordinatePartialJet.toInteriorTaylorJet_of_fderiv",
+            "CoordinatePartialJet.coordinate_eq_of_fderiv",
+            "literalDerivativeSup_eq_of_coefficients", "literalHolderSeminorm_eq_of_coefficients",
+            "CoordinatePartialJet.fderivInterior", "CoordinatePartialJet.toInteriorTaylorJet",
+            "CoordinatePartialJet.coordinate_eq", "continuousOn_coordinateDerivative_of_contDiffOn",
+            "hasLineDerivAt_coordinateDerivative_of_contDiffOn", "update_eq_add_coordinate",
+            "hasDerivAt_coordinateDerivative_update_of_contDiffOn",
+            "coordinatePartialRegularity_iff_contDiffOn", "CoordinatePartialJet.unique",
+            "holderNorm_eq_literalHolderNorm"]
         names = ["RoughRegime.Model." + n for n in declarations]
+        names.extend("RoughRegime.Calculus." + n for n in ["gradient_apply",
+            "gradient_continuousOn", "gradient_cons", "continuous_partials_hasStrictFDerivAt",
+            "gradient_comp_piLp", "continuous_partials_hasStrictFDerivAt_euclidean"])
         # The same primitive roots used by the pinned Lake Comparator. These
         # ensure that kernel primitive declarations travel with the export.
         primitives = ["Nat.add", "Nat.sub", "Nat.mul", "Nat.pow", "Nat.gcd", "Nat.div",
@@ -545,7 +559,7 @@ class Verifier:
             "Lean_NanoDa_and_verified_con_ron_completed": True,
             "supplementary_unsandboxed_diagnostic_only": True,
             "Palomar_compliant_verification_claim": False,
-            "scope": "finite-order boundary and coordinate-reconstruction proofs; excludes the unmechanized ordinary interior partial-derivative criterion"}
+            "scope": "finite-order boundary, coordinate reconstruction, genuine ordinary-partial calculus, and exact literal Holder regularity/norm equivalence"}
 
     def comparator(self, *, diagnostic: bool = False):
         if not diagnostic and not shutil.which("bwrap"):

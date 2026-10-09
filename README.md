@@ -39,7 +39,7 @@ These are nearly minimax bounds. The remaining logarithmic factor `(log n)^(ν/2
 | [formalization.yaml](formalization.yaml) | Mathematical scope, provenance, attribution, automation, and review |
 | [docs/coverage.md](docs/coverage.md) | Numbered paper claims and exact Lean endpoints |
 | [docs/fidelity.md](docs/fidelity.md) | Definitions, hypotheses, quantifiers, and proof-route qualifications |
-| [docs/boundary-regularity.md](docs/boundary-regularity.md) | Closed-cube convention, proved boundary bridge, and remaining interior translation |
+| [docs/boundary-regularity.md](docs/boundary-regularity.md) | Literal partial-derivative definition, closed-cube bridge, and exact Hölder norm equality |
 | [docs/provenance.md](docs/provenance.md) | Source identities and separate AI contribution disclosures |
 | [docs/verification.json](docs/verification.json) | Checks and source fingerprint for this prepared snapshot |
 
@@ -66,12 +66,12 @@ The selected Comparator results are exactly Theorem 2.3(a) and (b). The broader 
 
 Hölder smoothness uses order `ceil(t) − 1`, so integer smoothness means a Lipschitz highest derivative. Risk is represented in the extended nonnegative reals by the L2 norm. Randomization uses an independent uniform real seed; the development contains the bridge to real-output Markov estimators. Upper constants are uniform over observables with fixed magnitude bounds. Lower bounds retain the source's finite-support baseline, either nondegeneracy alternative, positive local radius, and class quantifiers. The positive `M0` parameter excludes inconsistent empty classes already ruled out by the source's nonempty-class condition.
 
-Closed-cube derivatives are continuous extensions of interior derivatives. The [boundary bridge](docs/boundary-regularity.md) proves that continuous finite interior derivative jets yield exactly the encoded `ContDiffOn` regularity and within-cube coefficients, without changing the Hölder radius. Finite-coordinate reconstruction is also proved. The ordinary interior conversion from classical partials to Fréchet derivatives is mathematically explained but is not separately mechanized; full literal coordinate-definition equivalence is therefore not claimed as a completed Lean theorem.
+Closed-cube derivatives are continuous extensions of ordinary interior mixed partials. The [definition bridge](docs/boundary-regularity.md) proves equivalence between a source predicate using genuine one-dimensional coordinate derivatives and the encoded `ContDiffOn` regularity, for every finite order. It identifies the derivative coefficients at every point of the cube and proves exact equality of the paper's sum-of-maxima Hölder norm, including its infinite-value cases. The Hölder radius is unchanged; differentiability outside the cube is not required.
 
 Review recorded for this preparation is **automated review by Codex**. Authorship and maintenance responsibility do not imply human review, peer review, or endorsement of any verification claim.
 
 ## Attribution and licensing
 
-**Sol 6.1 autoformalized the original development.** Subsequent **Codex preparation and compatibility work** and **Codex automated review** are disclosed separately in [docs/provenance.md](docs/provenance.md) and [formalization.yaml](formalization.yaml).
+**Sol 6.1 autoformalized the original development.** Subsequent **Codex preparation and compatibility work**, including the calculus, tensor, and boundary proofs establishing literal-definition equivalence, and **Codex automated review** are disclosed separately in [docs/provenance.md](docs/provenance.md) and [formalization.yaml](formalization.yaml).
 
 Original repository code and documentation are licensed under the **MIT License** in [LICENSE](LICENSE). The supplied paper remains attributed to its three authors; this repository does not change its publication rights. External dependencies and vendored verification tools retain their own licenses and notices, listed in [docs/licenses.md](docs/licenses.md).

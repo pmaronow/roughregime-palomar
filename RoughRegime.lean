@@ -239,6 +239,7 @@ public import RoughRegime.GlobalKProfiles
 public import RoughRegime.DerivativeSymmetry
 public import RoughRegime.MultiIndexHolder
 public import RoughRegime.BoundaryRegularity
+public import RoughRegime.LiteralHolder
 public import RoughRegime.PoissonInterleaving
 public import RoughRegime.ModelLocalApproximation
 public import RoughRegime.DesignReferenceMatrices

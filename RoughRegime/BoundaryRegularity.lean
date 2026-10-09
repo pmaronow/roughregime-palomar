@@ -7,8 +7,8 @@ public import Mathlib.Analysis.Calculus.FDeriv.Extend
 @[expose] public section
 /-! Boundary regularity from continuous finite interior derivative jets.
 The predicate below has no boundary derivative or ContDiffOn assumption.
-It uses Fréchet jets; the separate classical coordinate-to-Fréchet interior
-translation is discussed in docs/boundary-regularity.md. -/
+It uses Fréchet jets; LiteralHolder separately proves the ordinary
+coordinate-partial-to-Fréchet translation and exact source norm equivalence. -/
 noncomputable section
 
 open Set Filter
