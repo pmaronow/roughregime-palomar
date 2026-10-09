@@ -1,0 +1,1020 @@
+{
+  "schema_version": 3,
+  "paper": {
+    "title": "Nearly Minimax Rates for Functional Estimation Under Rough Random Design",
+    "authors": [
+      "P. M. Aronow",
+      "Nathan Kallus",
+      "Patrick Lopatto"
+    ],
+    "body_path": "paper/body.tex",
+    "body_sha256": "e2b0f98a4a9a799b68abb51049405967464300fc8ba1d43e91d2631c19f5b4b4",
+    "numbering": "chapter-local, shared theorem/example/remark counter"
+  },
+  "evidence_policy": "This is a source correspondence inventory, not a claim that existence of a declaration or a historical check proves its exact target. Challenge/Solution/Comparator identify the selected independently stated submission targets. The reproducible verification report records current build and kernel checks.",
+  "source_named_results": [
+    {
+      "id": "ex:mar",
+      "kind": "example",
+      "title": "Missing-data means and average treatment effects",
+      "source_labels": [
+        "ex:mar"
+      ],
+      "paper_number": "2.1",
+      "source_line_start": 575,
+      "source_line_end": 593,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Representative source declarations for the stated example, under the definitions and hypotheses of its observed-law class.",
+      "declarations": [
+        "RoughRegime.Causal.observedMean_fullData_identification",
+        "RoughRegime.Causal.real_ate_potential_identification",
+        "RoughRegime.Causal.real_conditionalEffect_potential_identification",
+        "RoughRegime.Causal.real_ate_class_identification",
+        "RoughRegime.Causal.real_conditionalEffect_class_identification",
+        "RoughRegime.Causal.real_armMean_potential_identification"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "ex:conditional",
+      "kind": "example",
+      "title": "Conditional covariance and variance",
+      "source_labels": [
+        "ex:conditional"
+      ],
+      "paper_number": "2.2",
+      "source_line_start": 595,
+      "source_line_end": 618,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Representative source declarations for the stated example, under the definitions and hypotheses of its observed-law class.",
+      "declarations": [
+        "RoughRegime.Conditional.prediction_loss_decomposition",
+        "RoughRegime.Conditional.conditional_mean_minimizes_loss",
+        "RoughRegime.ConditionalExamples.mean_conditional_covariance",
+        "RoughRegime.ConditionalExamples.mean_conditional_variance",
+        "RoughRegime.ConditionalExamples.explained_variance",
+        "RoughRegime.ConditionalExamples.conditional_variance_is_optimal_prediction_loss",
+        "RoughRegime.Prediction.optimal_prediction_loss",
+        "RoughRegime.Applications.Products.determination_bracket",
+        "RoughRegime.Applications.Products.determination_as_residual_fraction",
+        "RoughRegime.Applications.Products.responseVariance_decomposition",
+        "RoughRegime.Applications.Products.determination_quadratic_reverse",
+        "RoughRegime.Applications.Trial.squaredCATE_bracket",
+        "RoughRegime.Applications.Trial.cateVariance_bracket",
+        "RoughRegime.Causal.trial_transformed_conditional_eq_real_cate",
+        "RoughRegime.Causal.trial_transformed_variance_eq_effect_heterogeneity"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "thm:generic",
+      "kind": "theorem",
+      "title": "Minimax bounds",
+      "source_labels": [
+        "thm:generic",
+        "eq:upper-rates",
+        "eq:sharp-probability",
+        "eq:critical-rate",
+        "eq:sharp-bracket"
+      ],
+      "paper_number": "2.3",
+      "source_line_start": 762,
+      "source_line_end": 803,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Uniform upper constants precede response space, observables, and laws at fixed numerical bounds. Lower bound requires the finite-support strict-interior baseline and one of the residual covariance alternatives; constants precede every intermediate class. Equality theta=1/2 belongs to the root-n regime.",
+      "declarations": [
+        "RoughRegime.Model.uniformUpperClaim",
+        "RoughRegime.Model.mainLowerClaim",
+        "RoughRegime.Model.model_bracket",
+        "RoughRegime.Model.holderNorm_eq_classicalHolderNorm"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "rem:gap",
+      "kind": "remark",
+      "title": "Logarithmic form and the remaining gap",
+      "source_labels": [
+        "rem:gap",
+        "eq:log-risk"
+      ],
+      "paper_number": "2.4",
+      "source_line_start": 805,
+      "source_line_end": 822,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "The explicit scales leave the logarithmic factor (log n)^(nu/2-3/4), which is (log n)^(1/4) when nu=2. No closure of that gap is asserted.",
+      "declarations": [
+        "RoughRegime.Model.main_log_risk",
+        "RoughRegime.Model.main_scale_ratio_diverges",
+        "RoughRegime.Model.Bracket.log_refinement",
+        "RoughRegime.Model.Bracket.scale_ratio_diverges",
+        "RoughRegime.Model.Bracket.remaining_gap_factor",
+        "RoughRegime.Rates.remainingGapFactor_two",
+        "RoughRegime.Rates.remainingGapFactor_tendsto",
+        "RoughRegime.Model.block_constant_minimax_lower",
+        "RoughRegime.LatticePriors.SourceModelFamily.blockConstant_poisson_comparison",
+        "RoughRegime.LatticePriors.SourceModelFamily.blockConstant_target_statistics"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "rem:smooth-design",
+      "kind": "remark",
+      "title": "Smooth and nearly uniform densities",
+      "source_labels": [
+        "rem:smooth-design",
+        "rem:smooth-density"
+      ],
+      "paper_number": "2.5",
+      "source_line_start": 824,
+      "source_line_end": 839,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Persistence under C-infinity design densities imposes no fixed uniform derivative bound. Shrinking hard densities can have arbitrarily large derivatives. It does not imply persistence under a fixed density-smoothness ball.",
+      "declarations": [
+        "RoughRegime.Model.smooth_localClass_bracket",
+        "RoughRegime.Applications.MAR.smooth_mar_bracket",
+        "RoughRegime.Applications.MAR.smooth_treatment_brackets",
+        "RoughRegime.Applications.SeparatedMAR.smooth_lowerBracket",
+        "RoughRegime.Applications.SeparatedTreatment.smooth_treatment_lowerBrackets",
+        "RoughRegime.Applications.Products.smooth_bilinear_bracket",
+        "RoughRegime.Applications.Products.smooth_conditionalCovariance_bracket",
+        "RoughRegime.Applications.Products.smooth_quadratic_bracket",
+        "RoughRegime.Applications.Products.smooth_conditionalVariance_bracket",
+        "RoughRegime.Applications.Products.smooth_explained_bracket",
+        "RoughRegime.Applications.Products.smooth_determination_bracket",
+        "RoughRegime.Applications.Products.smooth_excessLoss_bracket_cube",
+        "RoughRegime.Applications.Trial.smooth_squaredCATE_bracket",
+        "RoughRegime.Applications.Trial.smooth_cateVariance_bracket",
+        "RoughRegime.Applications.Wald.smooth_wald_bracket",
+        "RoughRegime.Applications.ConditionalWald.smooth_conditionalWald_bracket",
+        "RoughRegime.Applications.Overlap.overlap_weighted_effect_smooth_bracket",
+        "RoughRegime.Applications.Products.uniform_smooth_excessLoss_constants_cube",
+        "RoughRegime.Applications.Products.nearlyUniform_quadratic_bracket",
+        "RoughRegime.Applications.Products.nearlyUniform_quadratic_log_exponent",
+        "RoughRegime.Applications.Products.nearlyUniform_quadratic_log_refinement",
+        "RoughRegime.Applications.Products.nearlyUniform_quadratic_not_hoif",
+        "RoughRegime.LatticePriors.SourceLatticeSetup.source_density_derivatives_unbounded"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "def:bracket",
+      "kind": "definition",
+      "title": null,
+      "source_labels": [
+        "def:bracket",
+        "eq:app-probability"
+      ],
+      "paper_number": "3.1",
+      "source_line_start": 860,
+      "source_line_end": 877,
+      "source_file": "paper/body.tex",
+      "classification": "definition",
+      "semantic_scope": "Definitions of parameter and upper/lower bracket predicates; no theorem is established by these definitions alone.",
+      "declarations": [
+        "RoughRegime.Model.BracketParameters",
+        "RoughRegime.Model.lowerBracketScale",
+        "RoughRegime.Model.upperBracketScale",
+        "RoughRegime.Model.LowerBracket",
+        "RoughRegime.Model.UpperBracket",
+        "RoughRegime.Model.Bracket"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications",
+      "kind": "corollary",
+      "title": "Applications",
+      "source_labels": [
+        "cor:applications",
+        "cor:mar-ate",
+        "cor:covariances",
+        "cor:wald",
+        "cor:overlap-effect",
+        "eq:sep-log-risk"
+      ],
+      "paper_number": "3.2",
+      "source_line_start": 889,
+      "source_line_end": 913,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Application brackets are proved for the specific observed-law classes. Separately bounded propensity/density rows have an original-interval lower bound, widened-interval upper bounds, and an o(sqrt(log n)) logarithmic conclusion; this differs from claiming an identical finite-n bracket at the original interval.",
+      "declarations": [
+        "RoughRegime.Applications.MAR.eta_mar_bracket",
+        "RoughRegime.Applications.MAR.eta_treatment_brackets",
+        "RoughRegime.Applications.SeparatedMAR.qualified_bracket",
+        "RoughRegime.Applications.SeparatedTreatment.qualified_treatment_brackets",
+        "RoughRegime.Applications.Products.bilinear_bracket",
+        "RoughRegime.Applications.Products.conditionalCovariance_bracket",
+        "RoughRegime.Applications.Products.quadratic_bracket",
+        "RoughRegime.Applications.Products.conditionalVariance_bracket",
+        "RoughRegime.Applications.Products.explained_bracket",
+        "RoughRegime.Applications.Products.determination_bracket",
+        "RoughRegime.Applications.Products.excessLoss_bracket_cube",
+        "RoughRegime.Applications.Trial.squaredCATE_bracket",
+        "RoughRegime.Applications.Trial.cateVariance_bracket",
+        "RoughRegime.Applications.Wald.eta_wald_bracket",
+        "RoughRegime.Applications.ConditionalWald.eta_conditionalWald_bracket",
+        "RoughRegime.Applications.Overlap.overlap_weighted_effect_bracket",
+        "RoughRegime.Applications.SeparatedMAR.separated_log_risk",
+        "RoughRegime.Applications.SeparatedTreatment.ate_log_risk",
+        "RoughRegime.Applications.SeparatedTreatment.att_log_risk",
+        "RoughRegime.Applications.SeparatedTreatment.atu_log_risk",
+        "RoughRegime.Applications.Products.uniform_excessLoss_constants_cube",
+        "RoughRegime.Model.Bracket.log_polynomial_exponent",
+        "RoughRegime.Model.Bracket.not_hoif_upper",
+        "RoughRegime.Model.Parameters.nu_eq_two_of_le_one"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:reciprocal",
+      "kind": "lemma",
+      "title": "Reciprocal expansion",
+      "source_labels": [
+        "lem:reciprocal",
+        "eq:common-generating",
+        "eq:cosine-reciprocal"
+      ],
+      "paper_number": "4.1",
+      "source_line_start": 1238,
+      "source_line_end": 1262,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Positive nondegenerate interval and complex disk |z|<rho^-1; includes the constant term and angular identity.",
+      "declarations": [
+        "RoughRegime.Upper.reciprocal_expansion",
+        "RoughRegime.Upper.reciprocal_expansion_at_one",
+        "RoughRegime.Upper.interval_reciprocal_angular"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:matrix-approximation",
+      "kind": "lemma",
+      "title": "Reciprocal truncations and derivative bounds",
+      "source_labels": [
+        "lem:matrix-approximation",
+        "lem:reciprocal-bounds",
+        "eq:matrix-polynomial",
+        "eq:matrix-approximation-error"
+      ],
+      "paper_number": "4.2",
+      "source_line_start": 1333,
+      "source_line_end": 1380,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Real symmetric matrices with spectra in the fixed positive interval. Exact total-degree and determinant-inverse truncation error; bounded affine matrix families give complex neighborhoods; Cauchy derivative bound applies to bounded polynomials. Conditional analytic lemma, not a statistical estimator theorem by itself.",
+      "declarations": [
+        "RoughRegime.CombinedAnalytic.matrix_determinant_truncation_error",
+        "RoughRegime.CombinedPolynomial.truncationEntryPolynomial_degree",
+        "RoughRegime.KernelExpressions.real_affine_expression_truncations",
+        "RoughRegime.Cauchy.polynomial_derivative_bound",
+        "RoughRegime.KernelExpressions.real_affine_expression_truncations_uniform_radius"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:projection-polynomials",
+      "kind": "lemma",
+      "title": "Polynomials for projection increments",
+      "source_labels": [
+        "lem:projection-polynomials",
+        "eq:cell-observable-bounds",
+        "eq:increment-approximation",
+        "eq:complex-bound",
+        "eq:polynomial-gradient"
+      ],
+      "paper_number": "4.3",
+      "source_line_start": 1483,
+      "source_line_end": 1519,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Section-wide alpha<=beta assumption is obtained by symmetry. Actual dyadic cells, model laws and known observable polynomials are used. Gradient exponent is the uncapped min(alpha,beta), and the full package also includes the base term.",
+      "declarations": [
+        "RoughRegime.Model.uniform_source_projection_lemma_full_gradient",
+        "RoughRegime.Model.ModelWitness.levelProjectionIncrement_eq",
+        "RoughRegime.Model.uniform_projection_telescope_resolution_bias"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:lift",
+      "kind": "lemma",
+      "title": "Mean and covariance of the lift",
+      "source_labels": [
+        "lem:lift"
+      ],
+      "paper_number": "4.4",
+      "source_line_start": 1730,
+      "source_line_end": 1740,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "The coefficient lift equals the paper derivative lift. Bounded measurable iid vectors, polynomial degree<=n; covariance retains 1/(r!*(n)_r) and stops above the smaller degree.",
+      "declarations": [
+        "RoughRegime.LiftTranslation.polynomialLift_eq_paperLift",
+        "RoughRegime.LiftTranslation.polynomialLift_eq_centeredDerivativeLift",
+        "RoughRegime.LiftTranslation.polynomialLift_covariance",
+        "RoughRegime.LiftTranslation.covariance_derivative_term_zero_above_smaller_degree",
+        "RoughRegime.Upper.polynomialLift_unbiased"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:variance",
+      "kind": "lemma",
+      "title": "Variance of a polynomial in cell moments",
+      "source_labels": [
+        "lem:variance",
+        "eq:variance-bound",
+        "eq:small-resolution-variance"
+      ],
+      "paper_number": "4.5",
+      "source_line_start": 1795,
+      "source_line_end": 1818,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Bounded iid observable vectors with actual cell support/probability bounds, complex polynomial bounds, and gradient bounds; 2R<=n. Extra declared cell independence follows from iid cells. Exact Cv=2*e^2*C0^7 and small-resolution condition Cv*R*K/n<=1/2.",
+      "declarations": [
+        "RoughRegime.LiftVariance.variance_polynomial_cell_lift_paper"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:window-sum",
+      "kind": "lemma",
+      "title": "Window sum",
+      "source_labels": [
+        "lem:window-sum"
+      ],
+      "paper_number": "4.6",
+      "source_line_start": 1926,
+      "source_line_end": 1934,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Positive theta,tau,B,X; finite set in (0,X] separated by log 2; exact numerical constant 2+sqrt(pi*X/theta)/log 2.",
+      "declarations": [
+        "RoughRegime.Window.window_sum",
+        "RoughRegime.Window.window_sum_finite_set"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:parametric-path",
+      "kind": "lemma",
+      "title": "A one-dimensional testing bound",
+      "source_labels": [
+        "lem:parametric-path"
+      ],
+      "paper_number": "5.1",
+      "source_line_start": 2177,
+      "source_line_end": 2190,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Actual probability laws on an open affine-density path, reference law probability, common positive density lower bound and bounded density slope, nonzero target derivative at an interior point. Includes all measurable randomized estimators.",
+      "declarations": [
+        "RoughRegime.LowerMeasure.parametric_path_minimax_bound",
+        "RoughRegime.LowerMeasure.hellinger_iid_le",
+        "RoughRegime.LowerMeasure.hellinger_with_seed",
+        "RoughRegime.GeneralTesting.two_point_rmse_lower"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:poisson-comparison",
+      "kind": "lemma",
+      "title": "Comparison of the Poisson mixtures",
+      "source_labels": [
+        "lem:poisson-comparison",
+        "eq:poisson-comparison-bound"
+      ],
+      "paper_number": "5.2",
+      "source_line_start": 2332,
+      "source_line_end": 2358,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Admissible independent pair priors, B=2p>=n, amplitudes in [0,1], original pointwise response-smallness <=1/2. Gamma is the literal prior expectation difference, with the unnormalized physical two-block measure 2*mu. Lambda=2*v0*n/B; the Poisson pair count has mean 2*barp*Lambda. No restriction that this mean be <=1 is added.",
+      "declarations": [
+        "RoughRegime.PoissonMeasure.AdmissiblePhasePair.original_lemma11",
+        "RoughRegime.PoissonMeasure.AdmissiblePhasePair.source_poisson_comparison"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "prop:reduction",
+      "kind": "proposition",
+      "title": "Reduction to two estimates",
+      "source_labels": [
+        "prop:reduction",
+        "eq:coefficient-hypothesis",
+        "eq:separation-hypothesis",
+        "eq:lower-testing-transfer"
+      ],
+      "paper_number": "5.3",
+      "source_line_start": 2490,
+      "source_line_end": 2534,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Conditional reduction: the existence of admissible priors with the coefficient and bilinear-separation estimates at every sufficiently large n and every even-side grid B>=n is a hypothesis. R,m growth restrictions and a local C4 integrand with nonzero ordinary mixed derivative are required. The source lattice construction instantiates this hypothesis for the main lower theorem.",
+      "declarations": [
+        "RoughRegime.PoissonMeasure.AdmissibleReduction.Parameters.paper_reduction_to_two_estimates",
+        "RoughRegime.LatticePriors.SourceModelFamily.source_family_rough_lower",
+        "RoughRegime.Model.source_rough_minimax_lower"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lat:gate",
+      "kind": "lemma",
+      "title": "Gated lattice laws",
+      "source_labels": [
+        "lat:gate",
+        "lat:gate-bounds"
+      ],
+      "paper_number": "6.1",
+      "source_line_start": 2729,
+      "source_line_end": 2749,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Actual sinc density and discrete lattice law with Q>=2, M>=2, eta>0, lambda>=1, and 4*(6Q/eta)<=M; real powers 0<=r<=2Q-2. Compact Fourier support is modulo integer multiples of M.",
+      "declarations": [
+        "RoughRegime.LatticeFourier.gated_lattice_laws",
+        "RoughRegime.LatticeFourier.latticeLaw",
+        "RoughRegime.LatticeFourier.poisson_sampling",
+        "RoughRegime.LatticeFourier.poisson_sampling_summable",
+        "RoughRegime.LatticeFourier.gate_weighted_rpow"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:lattice-priors",
+      "kind": "lemma",
+      "title": "Lattice priors",
+      "source_labels": [
+        "lem:lattice-priors",
+        "lat:smoothness",
+        "lat:coefficients",
+        "lat:separation",
+        "eq:lower-density-margin",
+        "eq:lower-norms",
+        "eq:lower-smooth-map"
+      ],
+      "paper_number": "6.2",
+      "source_line_start": 2962,
+      "source_line_end": 3010,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Genuine smooth normalized density/profile construction; density margin, Holder budgets, physical coefficient bounds and bilinear separation. Constants precede resolutions, realizations and construction budgets. Construction setup has proof-valued fields; construct_source_lattice_priors establishes their existence.",
+      "declarations": [
+        "RoughRegime.LatticePriors.construct_source_lattice_priors",
+        "RoughRegime.LatticePriors.source_lattice_priors"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "prop:local-lower",
+      "kind": "proposition",
+      "title": "Local lower bounds",
+      "source_labels": [
+        "prop:local-lower",
+        "eq:generic-angular-ratio-split"
+      ],
+      "paper_number": "7.1",
+      "source_line_start": 3452,
+      "source_line_end": 3500,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "StandingData is an input structure, not a proof. Actual proved rough and parametric declarations preserve the supplied bounded mean-zero scores and both score alternatives. Rough target matching is required only on the selected hard laws. Parametric path is clipped outside the relevant neighborhood solely to define laws for every real parameter; near zero it is the literal affine path. Constants precede later containing classes, targets and additive offsets.",
+      "declarations": [
+        "RoughRegime.LocalLower.StandingData.proposition15_rough",
+        "RoughRegime.LocalLower.StandingData.proposition15_parametric"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately.",
+      "input_structure": "RoughRegime.LocalLower.StandingData"
+    },
+    {
+      "id": "lem:local",
+      "kind": "lemma",
+      "title": "Localization and membership",
+      "source_labels": [
+        "lem:local",
+        "cor:membership"
+      ],
+      "paper_number": "7.2",
+      "source_line_start": 3576,
+      "source_line_end": 3609,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Smooth germ on an open neighborhood; axis cancellation determines the available Holder exponent. Either eligible exponent is allowed when both identities hold. Sup localization is little-o of the actual logarithmic density margin. Finite H/I/W membership restrictions and the constant path are separately proved.",
+      "declarations": [
+        "RoughRegime.LocalLower.StandingData.proposition15_lemma16_hard_family",
+        "RoughRegime.LocalLower.StandingData.lemma16_constant_path",
+        "RoughRegime.LatticePriors.SourceModelFamily.selected_germ_holder_budget",
+        "RoughRegime.LatticePriors.SourceModelFamily.selected_germ_sup_littleO"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "def:hard",
+      "kind": "definition",
+      "title": "Hardness",
+      "source_labels": [
+        "def:hard"
+      ],
+      "paper_number": "A.1",
+      "source_line_start": 3763,
+      "source_line_end": 3773,
+      "source_file": "paper/body.tex",
+      "classification": "definition",
+      "semantic_scope": "Hardness is a proposition-valued definition; the testing premise is not proved by declaring the predicate.",
+      "declarations": [
+        "RoughRegime.Model.HardAtScale"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:hard-risk",
+      "kind": "lemma",
+      "title": "From hardness to risk",
+      "source_labels": [
+        "lem:hard-risk",
+        "lem:hardness-bracket",
+        "eq:hard-consequence"
+      ],
+      "paper_number": "A.2",
+      "source_line_start": 3778,
+      "source_line_end": 3791,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Derives real randomized minimax RMSE and quarter-tail bounds from the explicitly assumed hardness condition.",
+      "declarations": [
+        "RoughRegime.Applications.hardness_to_risk",
+        "RoughRegime.Applications.minimaxRMSE_eq_eLpNorm",
+        "RoughRegime.Model.hardness_to_risk",
+        "RoughRegime.Model.local_hardness_to_model_risk",
+        "RoughRegime.Model.local_hardness_to_intermediate_risk",
+        "RoughRegime.Model.HardAtScale.eventually_risk",
+        "RoughRegime.Model.HardAtScale.lowerBracket"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:reductions",
+      "kind": "lemma",
+      "title": "Reductions",
+      "source_labels": [
+        "lem:reductions",
+        "eq:transfer-relation",
+        "eq:transfer-rmse",
+        "eq:moment-probability-transfer"
+      ],
+      "paper_number": "A.3",
+      "source_line_start": 3837,
+      "source_line_end": 3883,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Conditional Lipschitz combination/reverse and observation-kernel transfer results. Estimator bounds, target relations, membership and kernel measurability/transport must be supplied or derived in applications.",
+      "declarations": [
+        "RoughRegime.Applications.lipschitz_combination_minimax",
+        "RoughRegime.Applications.lipschitz_reverse_minimax",
+        "RoughRegime.Applications.lipschitz_iid_minimax_rmse",
+        "RoughRegime.Applications.hardness_reverse_transfer_iid",
+        "RoughRegime.Model.kernel_reduction",
+        "RoughRegime.Model.kernel_hardness"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "rem:combining-rates",
+      "kind": "remark",
+      "title": "Combining rates",
+      "source_labels": [
+        "rem:combining-rates"
+      ],
+      "paper_number": "A.4",
+      "source_line_start": 3940,
+      "source_line_end": 3953,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Rate combination is numerical infrastructure for finitely many proved terms, not a separate attainable estimator theorem.",
+      "declarations": [
+        "RoughRegime.RateCombination.finite_rate_sum_eventually_le",
+        "RoughRegime.Model.finite_upperBracket_transfer"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "lem:smooth-propensity-pilot",
+      "kind": "lemma",
+      "title": "A fixed-accuracy pilot",
+      "source_labels": [
+        "lem:smooth-propensity-pilot"
+      ],
+      "paper_number": "B.1",
+      "source_line_start": 4057,
+      "source_line_end": 4069,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Fixed positive accuracy, Holder radius/smoothness, bounded binary response and design density bounded above/below. A measurable pilot is constructed with exponentially small failure probability; not an adaptation theorem.",
+      "declarations": [
+        "RoughRegime.Applications.fixed_accuracy_smooth_pilot"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "ex:wald",
+      "kind": "example",
+      "title": "Wald ratio",
+      "source_labels": [
+        "ex:wald"
+      ],
+      "paper_number": "D.1",
+      "source_line_start": 4380,
+      "source_line_end": 4390,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Causal identification is conditional on the stated consistency, conditional instrument independence, exclusion, monotonicity and positive complier mass assumptions. Statistical minimax classes restrict observed laws.",
+      "declarations": [
+        "RoughRegime.Causal.RealIVData.class_wald_identification",
+        "RoughRegime.Causal.RealIVData.class_complier_mass_positive",
+        "RoughRegime.Causal.RealIVData.class_instrument_positive",
+        "RoughRegime.Causal.RealIVData.class_wald_weighted_conditional_complier"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "ex:conditional-wald",
+      "kind": "example",
+      "title": "Average conditional Wald ratio",
+      "source_labels": [
+        "ex:conditional-wald"
+      ],
+      "paper_number": "D.2",
+      "source_line_start": 4392,
+      "source_line_end": 4403,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Conditional Wald identification requires the stated one-sided treatment and effect assumptions; conditional weighting handles zero-complier-probability covariates.",
+      "declarations": [
+        "RoughRegime.Causal.RealIVData.witness_complier_identification",
+        "RoughRegime.Causal.RealIVData.witness_ate_of_homogeneity",
+        "RoughRegime.Causal.RealIVData.conditionalWald_actual_conditional_complier"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    },
+    {
+      "id": "ex:overlap-effect",
+      "kind": "example",
+      "title": "Overlap-weighted effect",
+      "source_labels": [
+        "ex:overlap-effect"
+      ],
+      "paper_number": "D.3",
+      "source_line_start": 4447,
+      "source_line_end": 4458,
+      "source_file": "paper/body.tex",
+      "classification": "proved_declaration_map",
+      "semantic_scope": "Observed-arm covariance/variance identity and unrestricted L2 residual-regression optimum. Causal effect interpretation additionally needs consistency and conditional exchangeability. Overlap class controls marginal outcome regression and propensity, not both arm regressions.",
+      "declarations": [
+        "RoughRegime.Applications.Overlap.effect_is_unrestricted_least_squares_optimum",
+        "RoughRegime.Applications.Overlap.optimizer_characterization",
+        "RoughRegime.Applications.Overlap.effect_abs_le_one",
+        "RoughRegime.Applications.Overlap.higher_beta_actual_overlap_conditions_differ",
+        "RoughRegime.Causal.real_overlap_effect_potential_identification"
+      ],
+      "verification_status": "Statement-inspected; fresh compilation and independent kernel status is recorded separately."
+    }
+  ],
+  "expanded_application_results": [
+    {
+      "id": "cor:applications:01",
+      "parent": "cor:applications",
+      "target": "MAR mean",
+      "class": "M_eta",
+      "theta": "(alpha+beta)/d",
+      "interval": "[eta,eta^-1]",
+      "nu": "q_alpha+q_beta",
+      "lean_declarations": [
+        "RoughRegime.Applications.MAR.eta_mar_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:02",
+      "parent": "cor:applications",
+      "target": "ATE",
+      "class": "T_eta",
+      "theta": "(alpha+min(beta0,beta1))/d",
+      "interval": "[eta,eta^-1]",
+      "nu": "q_alpha+q_min(beta0,beta1)",
+      "lean_declarations": [
+        "RoughRegime.Applications.MAR.eta_treatment_brackets"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:03",
+      "parent": "cor:applications",
+      "target": "ATT",
+      "class": "T_eta",
+      "theta": "(alpha+beta0)/d",
+      "interval": "[eta,eta^-1]",
+      "nu": "q_alpha+q_beta0",
+      "lean_declarations": [
+        "RoughRegime.Applications.MAR.eta_treatment_brackets"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:04",
+      "parent": "cor:applications",
+      "target": "ATU",
+      "class": "T_eta",
+      "theta": "(alpha+beta1)/d",
+      "interval": "[eta,eta^-1]",
+      "nu": "q_alpha+q_beta1",
+      "lean_declarations": [
+        "RoughRegime.Applications.MAR.eta_treatment_brackets"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:05",
+      "parent": "cor:applications",
+      "target": "MAR mean",
+      "class": "M_sep",
+      "theta": "(alpha+beta)/d",
+      "interval": "lower [p-,p+]; upper [(1-zeta)p-,(1+zeta)p+]",
+      "nu": "q_alpha+q_beta",
+      "lean_declarations": [
+        "RoughRegime.Applications.SeparatedMAR.qualified_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:06",
+      "parent": "cor:applications",
+      "target": "ATE",
+      "class": "T_sep",
+      "theta": "(alpha+min(beta0,beta1))/d",
+      "interval": "lower [p-,p+]; upper [(1-zeta)p-,(1+zeta)p+]",
+      "nu": "q_alpha+q_min(beta0,beta1)",
+      "lean_declarations": [
+        "RoughRegime.Applications.SeparatedTreatment.qualified_treatment_brackets"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:07",
+      "parent": "cor:applications",
+      "target": "ATT",
+      "class": "T_sep",
+      "theta": "(alpha+beta0)/d",
+      "interval": "lower [p-,p+]; upper [(1-zeta)p-,(1+zeta)p+]",
+      "nu": "q_alpha+q_beta0",
+      "lean_declarations": [
+        "RoughRegime.Applications.SeparatedTreatment.qualified_treatment_brackets"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:08",
+      "parent": "cor:applications",
+      "target": "ATU",
+      "class": "T_sep",
+      "theta": "(alpha+beta1)/d",
+      "interval": "lower [p-,p+]; upper [(1-zeta)p-,(1+zeta)p+]",
+      "nu": "q_alpha+q_beta1",
+      "lean_declarations": [
+        "RoughRegime.Applications.SeparatedTreatment.qualified_treatment_brackets"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:09",
+      "parent": "cor:applications",
+      "target": "Expected conditional covariance",
+      "class": "P_bil",
+      "theta": "(alpha+beta)/d",
+      "interval": "[p-,p+]",
+      "nu": "q_alpha+q_beta",
+      "lean_declarations": [
+        "RoughRegime.Applications.Products.conditionalCovariance_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:10",
+      "parent": "cor:applications",
+      "target": "Expected product of conditional means",
+      "class": "P_bil",
+      "theta": "(alpha+beta)/d",
+      "interval": "[p-,p+]",
+      "nu": "q_alpha+q_beta",
+      "lean_declarations": [
+        "RoughRegime.Applications.Products.bilinear_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:11",
+      "parent": "cor:applications",
+      "target": "Expected conditional variance",
+      "class": "P_quad",
+      "theta": "2s/d",
+      "interval": "[p-,p+]",
+      "nu": "2q_s",
+      "lean_declarations": [
+        "RoughRegime.Applications.Products.conditionalVariance_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:12",
+      "parent": "cor:applications",
+      "target": "Expected squared conditional mean",
+      "class": "P_quad",
+      "theta": "2s/d",
+      "interval": "[p-,p+]",
+      "nu": "2q_s",
+      "lean_declarations": [
+        "RoughRegime.Applications.Products.quadratic_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:13",
+      "parent": "cor:applications",
+      "target": "Explained variance",
+      "class": "P_quad",
+      "theta": "2s/d",
+      "interval": "[p-,p+]",
+      "nu": "2q_s",
+      "lean_declarations": [
+        "RoughRegime.Applications.Products.explained_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:14",
+      "parent": "cor:applications",
+      "target": "Population R squared",
+      "class": "P_quad(v_min)",
+      "theta": "2s/d",
+      "interval": "[p-,p+]",
+      "nu": "2q_s",
+      "lean_declarations": [
+        "RoughRegime.Applications.Products.determination_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:15",
+      "parent": "cor:applications",
+      "target": "Expected squared CATE",
+      "class": "P_trial",
+      "theta": "2s/d",
+      "interval": "[p-,p+]",
+      "nu": "2q_s",
+      "lean_declarations": [
+        "RoughRegime.Applications.Trial.squaredCATE_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:16",
+      "parent": "cor:applications",
+      "target": "CATE variance",
+      "class": "P_trial",
+      "theta": "2s/d",
+      "interval": "[p-,p+]",
+      "nu": "2q_s",
+      "lean_declarations": [
+        "RoughRegime.Applications.Trial.cateVariance_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:17",
+      "parent": "cor:applications",
+      "target": "Wald ratio",
+      "class": "I_eta,cW",
+      "theta": "(alpha+beta)/d",
+      "interval": "[eta,eta^-1]",
+      "nu": "q_alpha+q_beta",
+      "lean_declarations": [
+        "RoughRegime.Applications.Wald.eta_wald_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:18",
+      "parent": "cor:applications",
+      "target": "Average conditional Wald ratio",
+      "class": "J_eta",
+      "theta": "(alpha+beta)/d",
+      "interval": "[eta,eta^-1]",
+      "nu": "q_alpha+q_beta",
+      "lean_declarations": [
+        "RoughRegime.Applications.ConditionalWald.eta_conditionalWald_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:19",
+      "parent": "cor:applications",
+      "target": "Overlap weighted effect",
+      "class": "P_OW",
+      "theta": "min((alpha+beta)/d,2alpha/d)",
+      "interval": "[p-,p+]",
+      "nu": "q_alpha+q_min(alpha,beta)",
+      "lean_declarations": [
+        "RoughRegime.Applications.Overlap.overlap_weighted_effect_bracket"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    },
+    {
+      "id": "cor:applications:20",
+      "parent": "cor:applications",
+      "target": "Excess prediction loss versus bounded known f0",
+      "class": "P_quad",
+      "theta": "2s/d",
+      "interval": "[p-,p+]",
+      "nu": "2q_s",
+      "lean_declarations": [
+        "RoughRegime.Applications.Products.excessLoss_bracket_cube",
+        "RoughRegime.Applications.Products.uniform_excessLoss_constants_cube",
+        "RoughRegime.Applications.Products.uniform_smooth_excessLoss_constants_cube"
+      ],
+      "verification_status": "Statement-inspected mapping; fresh compilation and kernel status is recorded separately."
+    }
+  ],
+  "interpretation": {
+    "proposition_valued_targets": [
+      "RoughRegime.Model.UniformUpperClaim",
+      "RoughRegime.Model.MainLowerClaim",
+      "RoughRegime.Model.UpperBoundAt",
+      "RoughRegime.Model.Bracket",
+      "RoughRegime.Model.HardAtScale",
+      "RoughRegime.PoissonMeasure.AdmissibleReduction.GridExistenceHypothesis",
+      "RoughRegime.PoissonMeasure.AdmissibleReduction.GridReductionConclusion"
+    ],
+    "proved_main_endpoints": [
+      "RoughRegime.Model.uniformUpperClaim",
+      "RoughRegime.Model.mainLowerClaim",
+      "RoughRegime.Model.model_bracket"
+    ],
+    "conditional_infrastructure": "Proposition 5.3 and reduction/analytic lemmas prove implications with explicit hypotheses; those predicates or hypotheses alone do not establish the headline minimax bounds.",
+    "background": "Cited external efficiency, known-design/smooth-design, adaptive-estimator and concurrent-work results are background. This inventory does not assert independent formalization of those results."
+  },
+  "selected_submission_targets": [
+    {
+      "paper_label": "thm:generic",
+      "paper_number": "2.3(a)",
+      "challenge_declaration": "RoughRegimeSubmission.mainUpper",
+      "proved_source_endpoint": "RoughRegime.Model.uniformUpperClaim",
+      "type_predicate": "RoughRegime.Model.UniformUpperClaim",
+      "check": "independently expanded Challenge target compared against Solution"
+    },
+    {
+      "paper_label": "thm:generic",
+      "paper_number": "2.3(b)",
+      "challenge_declaration": "RoughRegimeSubmission.mainLower",
+      "proved_source_endpoint": "RoughRegime.Model.mainLowerClaim",
+      "type_predicate": "RoughRegime.Model.MainLowerClaim",
+      "check": "independently expanded Challenge target compared against Solution"
+    }
+  ],
+  "explicit_typed_check_module": {
+    "path": "NumberedClaims.lean",
+    "namespace": "RoughRegimeVerification",
+    "status": "Source prepared; current compilation and kernel results recorded separately.",
+    "substantive_checks": [
+      "theorem_2_3_a",
+      "theorem_2_3_b",
+      "scale_logarithm",
+      "lemma_4_1",
+      "lemma_4_1_at_one",
+      "lemma_4_6",
+      "lemma_5_1",
+      "lemma_6_1",
+      "proposition_7_1_rough",
+      "proposition_7_1_parametric"
+    ],
+    "definitional_normalization_checks": [
+      "rho_formula",
+      "scale_formula"
+    ],
+    "imports": [
+      "RoughRegime",
+      "Solution"
+    ],
+    "does_not_import": "Challenge",
+    "remaining_inventory": "Statement-inspected mapping; existence checks alone do not establish exact target equivalence."
+  }
+}

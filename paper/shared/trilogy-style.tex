@@ -1,0 +1,330 @@
+%% trilogy-style.tex -- typographic design for the submission.
+%%
+%% Loaded by main.tex with \input{shared/trilogy-style}, after the class, fontenc and
+%% inputenc, the AMS packages, natbib or biblatex, and imakeidx, and before the document's
+%% theorem declarations and macros. The title, theorem names, local notes, and short
+%% running heads are defined in main.tex.
+%%
+%% Principles: readability first, then understated elegance. The document is read mostly
+%% on screen, so the page is set for that: 12pt type on a full-width letter page with 1in
+%% side margins, one-sided, with the same quiet head on every page. Black text only; one
+%% readable face with matching mathematics; headings distinguished by size, weight and
+%% space rather than colour or rules; statements in the standard amsthm manner; classic
+%% title page. The main.tex uses \documentclass[12pt,oneside,
+%% openany]{book}.
+
+\makeatletter
+
+%% ---------------------------------------------------------------------------
+%% Type: Palatino for text and mathematics (mathpazo, with true small capitals).
+%% Its larger x-height and sturdier strokes read better than Latin Modern, on screen
+%% and in dense formulas, and the math italic and symbols are drawn to match the text.
+%% Latin Modern supplies the sans-serif and typewriter faces (URLs). bm comes after
+%% the math fonts so that \bm finds bold Palatino.
+%% ---------------------------------------------------------------------------
+\usepackage{lmodern}
+\usepackage[sc]{mathpazo}
+\usepackage{bm}
+\linespread{1.1}
+\usepackage{microtype}
+% Font expansion limited to 1.5% (default 2%): steadier colour, and it avoids the
+% hairline overfull lines that maximal shrink plus protrusion can leave.
+\microtypesetup{stretch=15,shrink=15}
+
+%% ---------------------------------------------------------------------------
+%% Page, set for reading on screen: US letter, 1in side margins (a 6.5in line, about
+%% 85 characters of Palatino 12pt), and slightly smaller top and bottom margins with
+%% the head and foot inside them, so a page fitted to the window shows large type.
+%% ---------------------------------------------------------------------------
+\usepackage{geometry}
+\geometry{letterpaper,left=1in,right=1in,top=0.75in,bottom=0.75in,includeheadfoot,
+  headheight=15pt,headsep=16pt,footskip=26pt}
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{3em}
+% A paragraph may set a slightly loose line rather than push a word into the margin.
+\tolerance=1000
+\clubpenalty=3000 \widowpenalty=3000 \displaywidowpenalty=1500
+\raggedbottom
+\allowdisplaybreaks[2]
+
+%% Lists: compact, indented like a paragraph.
+\usepackage{enumitem}
+\setlist{topsep=4pt plus 2pt minus 1pt,itemsep=2pt plus 1pt,parsep=0pt}
+\setlist[itemize]{leftmargin=1.5em}
+\setlist[enumerate]{leftmargin=2em}
+
+\usepackage[newparttoc]{titlesec}
+\usepackage{titletoc,fancyhdr}
+
+%% Letterspaced small capitals, for labels such as "Chapter 3".
+\newcommand{\trilogy@spacedsc}[1]{{\scshape\textls[90]{\MakeLowercase{#1}}}}
+%% Headings are ragged right and unhyphenated; a title that needs two lines is broken
+%% into lines of similar length rather than leaving a single word on the second line.
+\newcommand{\trilogy@headpar}{\rightskip=0pt plus 0.5\hsize\relax
+  \parfillskip=0pt plus 0.5\hsize\relax\hyphenpenalty=10000\relax\exhyphenpenalty=10000\relax}
+
+%% ---------------------------------------------------------------------------
+%% Headings (titlesec): a regular-weight chapter title under a spaced small-capitals
+%% label; bold section titles; plain part pages; no colour and no rules.
+%% ---------------------------------------------------------------------------
+\titleformat{\part}[display]
+  {\normalfont\centering}
+  {\large\trilogy@spacedsc{\partname\ \thepart}}
+  {22pt}
+  {\fontsize{22}{28}\selectfont}
+\assignpagestyle{\part}{empty}
+
+\titleformat{\chapter}[display]
+  {\normalfont\trilogy@headpar}
+  {\trilogy@spacedsc{\chaptertitlename\ \thechapter}}
+  {12pt}
+  {\fontsize{20}{25}\selectfont}
+\titleformat{name=\chapter,numberless}[display]
+  {\normalfont\trilogy@headpar}
+  {}
+  {0pt}
+  {\fontsize{20}{25}\selectfont\trilogy@starmark}
+\titlespacing*{\chapter}{0pt}{12pt}{30pt}
+% An unnumbered chapter (front matter, contents, references, index) sets both running heads.
+\newcommand{\trilogy@starmark}[1]{#1\markboth{#1}{#1}}
+
+\titleformat{\section}
+  {\normalfont\fontsize{13.5}{17}\selectfont\bfseries\trilogy@headpar}{\thesection}{0.75em}{}
+\titlespacing*{\section}{0pt}{22pt plus 4pt minus 2pt}{9pt plus 2pt}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\trilogy@headpar}{\thesubsection}{0.75em}{}
+\titlespacing*{\subsection}{0pt}{15pt plus 3pt minus 2pt}{6pt plus 1pt}
+\titleformat{\paragraph}[runin]
+  {\normalfont\normalsize\bfseries}{}{0pt}{}
+\titlespacing*{\paragraph}{0pt}{9pt plus 2pt minus 1pt}{0.6em}
+
+\setcounter{tocdepth}{1}
+\setcounter{secnumdepth}{1}
+
+%% ---------------------------------------------------------------------------
+%% Running heads (one-sided, the same on every page): the chapter number and title at
+%% the left, and at the right the section number and title followed by the page number,
+%% all in small italic except the numbers, with no rule. When chapter and section titles
+%% do not both fit on the line, the right head shows only the section number (§1.2). Chapter-
+%% opening pages carry only a centred page number at the foot; part pages carry nothing.
+%%
+%% A long title can be given a short form in main.tex:
+%%   \shorthead{<title exactly as in the source>}{<short form>}
+%% A chapter head too wide for the line falls back to "Chapter N" (with a warning).
+%% ---------------------------------------------------------------------------
+\newcommand{\shorthead}[2]{\expandafter\def\csname trilogy@sh@\detokenize{#1}\endcsname{#2}}
+\newcommand{\trilogy@lookup}[1]{%
+  \ifcsname trilogy@sh@\detokenize{#1}\endcsname
+    \expandafter\let\expandafter\trilogy@headtext\csname trilogy@sh@\detokenize{#1}\endcsname
+  \else
+    \def\trilogy@headtext{#1}%
+  \fi}
+\newcommand{\trilogy@headfont}{\normalfont\small\itshape}
+% A mark is \trilogy@hd{number}{title}; the number is empty for unnumbered chapters.
+\DeclareRobustCommand{\trilogy@hd}[2]{%
+  \ifx\relax#1\relax\else{\upshape#1}\hspace{0.8em}\fi#2}
+\newsavebox{\trilogy@chapbox}
+\newsavebox{\trilogy@secbox}
+\newsavebox{\trilogy@cachedchapbox}
+\newsavebox{\trilogy@cachedsecbox}
+\newif\iftrilogy@headtoolong
+\newif\iftrilogy@cachedheadtoolong
+\let\trilogy@cachedheadkey\relax
+% Compute the two boxes only when their marks or dimensions change.
+\newcommand{\trilogy@computeheads}{%
+  \trilogy@headtoolongfalse
+  \sbox\trilogy@chapbox{\trilogy@headfont\nouppercase{\leftmark}}%
+  \sbox\trilogy@secbox{}%
+  \protected@edef\trilogy@l{\leftmark}%
+  \protected@edef\trilogy@r{\rightmark}%
+  \ifx\trilogy@r\@empty\else\ifx\trilogy@r\trilogy@l\else
+    \sbox\trilogy@secbox{\trilogy@headfont\nouppercase{\rightmark}}%
+  \fi\fi
+  \dimen@=\wd\trilogy@chapbox\advance\dimen@ 4em\relax
+  \ifdim\dimen@>\headwidth
+    \sbox\trilogy@chapbox{\trilogy@headfont\@chapapp\ \thechapter}%
+    \trilogy@headtoolongtrue
+  \fi
+  \dimen@=\wd\trilogy@chapbox\advance\dimen@\wd\trilogy@secbox\advance\dimen@ 8em\relax
+  \ifdim\dimen@>\headwidth
+    \sbox\trilogy@secbox{\trilogy@headfont
+      \expandafter\let\csname trilogy@hd \endcsname\trilogy@hdnum\nouppercase{\rightmark}}%
+  \fi}
+% Both fancyhdr fields, and successive pages with the same marks, reuse these
+% boxes. The cache is global because fancyhdr evaluates its fields in groups;
+% the page number and page-specific warnings remain outside the cached boxes.
+\newcommand{\trilogy@heads}[1]{%
+  \protected@edef\trilogy@headkey{%
+    {\leftmark}{\rightmark}{\the\headwidth}%
+    {\fontname\font}{\the\dimexpr1em\relax}{\thechapter}{\@chapapp}}%
+  \ifx\trilogy@headkey\trilogy@cachedheadkey\else
+    \trilogy@computeheads
+    \global\setbox\trilogy@cachedchapbox=\copy\trilogy@chapbox
+    \global\setbox\trilogy@cachedsecbox=\copy\trilogy@secbox
+    \global\let\trilogy@cachedheadkey\trilogy@headkey
+    \iftrilogy@headtoolong
+      \global\trilogy@cachedheadtoolongtrue
+    \else
+      \global\trilogy@cachedheadtoolongfalse
+    \fi
+  \fi
+  \setbox\trilogy@chapbox=\copy\trilogy@cachedchapbox
+  \setbox\trilogy@secbox=\copy\trilogy@cachedsecbox
+  \iftrilogy@cachedheadtoolong
+    \ifx\relax#1\relax\else\PackageWarningNoLine{trilogy-style}{Running head too long on
+      page \thepage; give the chapter a \string\shorthead}\fi
+  \fi}
+% The section number alone, for a right head with no room for the section title. (A mark
+% holds the robust command's inner macro "\trilogy@hd ", which is what is replaced above.)
+\newcommand{\trilogy@hdnum}[2]{\ifx\relax#1\relax\else\S\,{\upshape#1}\fi}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\trilogy@heads{warn}\usebox\trilogy@chapbox}
+\fancyhead[R]{\trilogy@heads{}%
+  \ifdim\wd\trilogy@secbox>\z@\usebox\trilogy@secbox\hspace{2em}\fi
+  \normalfont\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\normalfont\small\thepage}%
+  \renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}}
+\renewcommand{\chaptermark}[1]{\trilogy@lookup{#1}%
+  \markboth{\trilogy@hd{\ifnum\c@secnumdepth>\m@ne\if@mainmatter\thechapter\fi\fi}{\trilogy@headtext}}{}}
+\renewcommand{\sectionmark}[1]{\trilogy@lookup{#1}%
+  \markright{\trilogy@hd{\ifnum\c@secnumdepth>\z@\thesection\fi}{\trilogy@headtext}}}
+
+%% ---------------------------------------------------------------------------
+%% Table of contents (titletoc): parts in spaced small capitals, chapters in roman with
+%% hanging numbers, sections indented and smaller with sparse leaders.
+%% ---------------------------------------------------------------------------
+\contentsmargin{2.2em}
+\titlecontents{part}[0pt]
+  {\addvspace{16pt plus 2pt}\normalfont}
+  {\trilogy@spacedsc{\partname\ \thecontentslabel}\hspace{1em}}
+  {}
+  {\hfill\contentspage}
+  [\addvspace{4pt}]
+\titlecontents{chapter}[2.2em]
+  {\addvspace{7pt plus 1pt}\normalfont}
+  {\contentslabel{2.2em}}
+  {\hspace*{-2.2em}}
+  {\hfill\contentspage}
+\titlecontents{section}[4.8em]
+  {\normalfont\small}
+  {\contentslabel{2.6em}}
+  {\hspace*{-2.6em}}
+  {\titlerule*[0.9em]{.}\contentspage}
+
+%% ---------------------------------------------------------------------------
+%% Index and bibliography: the index in two columns of small type; the bibliography
+%% is "References", listed in the contents.
+%% ---------------------------------------------------------------------------
+% The last index page is balanced by multicol, which by default accepts a balanced column up
+% to 12pt (a line) too long, so that one added entry can push a line into the bottom margin.
+% With no overflow allowed, multicol fills that page normally and balances the rest on the
+% next page instead; ragged columns keep balanced columns at their natural height.
+\indexsetup{othercode={\small\raggedcolumns\maxbalancingoverflow=\z@}}
+\@ifpackageloaded{natbib}{%
+  \renewcommand{\bibsection}{\chapter*{References}%
+    \addcontentsline{toc}{chapter}{References}}%
+}{}
+
+%% ---------------------------------------------------------------------------
+%% Statements, examples and notes (amsthm). The three standard styles are redefined
+%% with one generous spacing, so \theoremstyle{plain|definition|remark} in
+%% main.tex picks up the design:
+%%   plain       bold label, italic body    (Statement, Theorem, Lemma, ...)
+%%   definition  bold label, upright body   (Definition, Example, Technical walkthrough)
+%%   remark      italic label, upright body (Caution, Seminar question)
+%% ---------------------------------------------------------------------------
+\newlength{\trilogyenvskip}
+\setlength{\trilogyenvskip}{10pt plus 3pt minus 2pt}
+\newtheoremstyle{plain}{\trilogyenvskip}{\trilogyenvskip}
+  {\itshape}{}{\bfseries}{.}{0.5em}{}
+\newtheoremstyle{definition}{\trilogyenvskip}{\trilogyenvskip}
+  {\normalfont}{}{\bfseries}{.}{0.5em}{}
+\newtheoremstyle{remark}{\trilogyenvskip}{\trilogyenvskip}
+  {\normalfont}{}{\itshape}{.}{0.5em}{}
+
+%% Run-in notes ("Used in:", "Sources.", ...): an italic label and ordinary text,
+%% a little space above. \trilogynote{<label>}{<text>}
+\newcommand{\trilogynote}[2]{\par\addvspace{5pt plus 1pt}\noindent{\itshape #1}\enspace #2\par}
+
+%% "Used in:" line after a statement: \usedin{<references>}
+\newcommand{\usedin}[1]{\trilogynote{Used in:}{#1}}
+
+%% Technical walkthrough: a numbered, multi-paragraph guided calculation,
+%% \begin{walkthrough}[<optional title>] ... \end{walkthrough}. Definition style;
+%% it ends with an open square at the right margin, like a proof, so the reader sees
+%% where it stops. The name may be changed with \renewcommand{\walkthroughname}{...}.
+\newcommand{\walkthroughname}{Technical walkthrough}
+\newcommand{\walkthroughend}{\ensuremath{\square}}
+%% Set-off statement: definition style, bold label and upright text, with the whole statement
+%% indented 1.5em on both sides like the asides, instead of a box. Displays stay centred.
+%% Declare with \theoremstyle{trilogysetoff}\newtheorem{<env>}{<name>}[chapter].
+\newtheoremstyle{trilogysetoff}{\trilogyenvskip}{\trilogyenvskip}
+  {\normalfont\leftskip=1.5em\rightskip=1.5em\relax}{}{\bfseries}{.}{0.5em}{}
+
+\theoremstyle{definition}
+\newtheorem{trilogywalk}{\walkthroughname}[chapter]
+\newenvironment{walkthrough}[1][]
+  {\ifx\relax#1\relax\begin{trilogywalk}\else\begin{trilogywalk}[#1]\fi
+   \pushQED{\qed}\renewcommand{\qedsymbol}{\walkthroughend}}
+  {\popQED\end{trilogywalk}}
+\theoremstyle{plain}
+
+%% Set-off asides, \begin{sayit} ... \end{sayit} ("How to say it") and
+%% \begin{fiveminute} ... \end{fiveminute} ("Five-minute explanation"): a spaced
+%% small-capitals label and a body indented on both sides; no box, no rule, no tint.
+%% Inside sayit, \tophysicist and \tomathematician start the two voices.
+\newenvironment{trilogyaside}[1]
+  {\par\addvspace{11pt plus 3pt minus 2pt}%
+   \list{}{\leftmargin=1.5em\rightmargin=1.5em\topsep=0pt\partopsep=0pt\parsep=0pt
+     \listparindent=1.5em\itemsep=0pt}%
+   \item\relax{\trilogy@spacedsc{#1}}\par\nopagebreak\vspace{3pt}\noindent\ignorespaces}
+  {\endlist\par\addvspace{11pt plus 3pt minus 2pt}}
+\newenvironment{sayit}{\begin{trilogyaside}{How to say it}}{\end{trilogyaside}}
+\newenvironment{fiveminute}{\begin{trilogyaside}{Five-minute explanation}}{\end{trilogyaside}}
+\newcommand{\tophysicist}{\par\addvspace{2pt}\noindent{\itshape To a physicist.}\enspace\ignorespaces}
+\newcommand{\tomathematician}{\par\addvspace{4pt}\noindent{\itshape To a mathematician.}\enspace\ignorespaces}
+
+%% Keeping a heading with what follows it: \trilogyneedspace{<length>} starts a new page at
+%% once unless at least <length> of the current page remains. The test is made on the spot,
+%% so it also works before a longtable (a breakpoint left for later would be taken under
+%% longtable's output routine, which then repeats the table head above the heading).
+\newcommand{\trilogyneedspace}[1]{\par\penalty-100\begingroup
+  \setlength{\dimen@}{#1}\dimen@ii\pagegoal\advance\dimen@ii-\pagetotal
+  \ifdim\dimen@>\dimen@ii\ifdim\dimen@ii>\z@\vfil\fi\break\fi\endgroup}
+
+%% Captions: small type (11pt at the 12pt base), "Table A.1." with a full stop.
+\usepackage[font=small,labelsep=period,skip=8pt]{caption}
+
+%% Footnotes in \small rather than \footnotesize, for legibility on screen.
+\usepackage{etoolbox}
+\patchcmd{\@footnotetext}{\footnotesize}{\small}{}{}
+
+%% ---------------------------------------------------------------------------
+%% Wide reference tables. \widetablesetup, issued inside a group just before a
+%% longtable, lets that table run \trilogy@overhang into each margin, centred on the
+%% page: within the group \linewidth is the measure plus twice the overhang, so
+%% p{<fraction>\linewidth} columns scale with it. With the 6.5in screen measure the
+%% overhang is zero; the command is kept so that tables using it need no change.
+%% ---------------------------------------------------------------------------
+\newcommand{\trilogy@overhang}{0pt}
+\newcommand{\widetablesetup}{%
+  \setlength{\LTleft}{-\trilogy@overhang plus 1fill}%
+  \setlength{\LTright}{-\trilogy@overhang plus 1fill}%
+  \setlength{\linewidth}{\dimexpr\textwidth+2\dimexpr\trilogy@overhang\relax\relax}}
+
+%% ---------------------------------------------------------------------------
+%% Links: black and unboxed; they still work. No author in the PDF metadata.
+%% The PDF opens on the document alone (no side panel), at full page width,
+%% with the document title (not the file name) in the window bar.
+%% ---------------------------------------------------------------------------
+\usepackage[hidelinks,bookmarksnumbered=true]{hyperref}
+\usepackage{bookmark}
+\hypersetup{pdfauthor={},pdfpagemode=UseNone,pdfdisplaydoctitle=true,
+  pdfstartview={FitH \hypercalcbp{\paperheight}}}
+
+\makeatother

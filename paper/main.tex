@@ -1,0 +1,719 @@
+\documentclass[12pt,oneside,openany]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{booktabs,array}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{imakeidx}% required by \indexsetup in shared/trilogy-style.tex
+\usepackage{environ}
+\PassOptionsToPackage{hypertexnames=false}{hyperref}
+\input{shared/trilogy-style}% shared design
+\usepackage[nameinlink,capitalize,noabbrev]{cleveref}
+\usepackage{aliascnt}
+\hypersetup{pdftitle={Nearly Minimax Rates for Functional Estimation Under Rough Random Design},pdfauthor={P. M. Aronow, Nathan Kallus, and Patrick Lopatto}}
+% The paper is a single part. Its top-level units are sections: they are set with the
+% design's chapter headings, labeled "Section", and listed as such in the contents; their
+% subsections are the design's numbered sections. The appendices are the chapters after
+% \appendix: they are headed and referred to as "Appendix A", and their sections as
+% "Appendix A.1".
+\renewcommand{\chaptername}{Section}
+\numberwithin{equation}{chapter}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+\theoremstyle{definition}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+\newaliascnt{example}{theorem}
+\newtheorem{example}[example]{Example}
+\aliascntresetthe{example}
+\theoremstyle{remark}
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{proposition}{Proposition}{Propositions}
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{corollary}{Corollary}{Corollaries}
+\crefname{definition}{Definition}{Definitions}
+\crefname{example}{Example}{Examples}
+\crefname{remark}{Remark}{Remarks}
+\crefname{chapter}{Section}{Sections}
+\crefname{section}{Section}{Sections}
+\crefname{subsection}{Section}{Sections}
+% After \appendix, cleveref files chapters as "appendix" and their sections as "subappendix".
+\crefname{appendix}{Appendix}{Appendices}
+\crefname{subappendix}{Appendix}{Appendices}
+\crefname{subsubappendix}{Appendix}{Appendices}
+\crefname{table}{Table}{Tables}
+% Equations are referred to by their number in parentheses, as with \eqref.
+\crefname{equation}{}{}
+\crefformat{equation}{(#2#1#3)}
+\Crefformat{equation}{(#2#1#3)}
+\crefrangeformat{equation}{(#3#1#4)--(#5#2#6)}
+\Crefrangeformat{equation}{(#3#1#4)--(#5#2#6)}
+\crefmultiformat{equation}{(#2#1#3)}{ and~(#2#1#3)}{, (#2#1#3)}{ and~(#2#1#3)}
+\Crefmultiformat{equation}{(#2#1#3)}{ and~(#2#1#3)}{, (#2#1#3)}{ and~(#2#1#3)}
+
+% A centered block of small type on a narrower measure, with an optional spaced
+% small-capitals label: the authors' note and the abstract.
+\makeatletter
+\newcommand{\npp@noteblock}[2]{%
+  \ifx\relax#1\relax\else{\centering\trilogy@spacedsc{#1}\par}\vspace{6pt}\fi
+  {\centering
+   \begin{minipage}{0.84\textwidth}\small\normalfont\setlength{\parindent}{1.5em}%
+     \noindent\ignorespaces#2\end{minipage}\par}}
+% The authors' note and the abstract each have a page of their own, after the title page,
+% set a little above the middle of the page and with no head or foot.
+\NewEnviron{authorsnote}{%
+  \clearpage\thispagestyle{empty}%
+  \vspace*{\stretch{2}}%
+  \npp@noteblock{Authors' note}{\BODY}%
+  \vspace*{\stretch{3}}%
+  \clearpage}
+\NewEnviron{abstractpage}{%
+  \clearpage\thispagestyle{empty}%
+  \vspace*{\stretch{2}}%
+  \npp@noteblock{Abstract}{\BODY}%
+  \vspace*{\stretch{3}}%
+  \clearpage}
+% Title page: the title at a fixed position, and the
+% authors, one to a line, in the lower half of the page.
+% \npptitlepage{<title>}{<author \\ author>}
+\newcommand{\npptitlepage}[2]{%
+  \hypersetup{pageanchor=false}%
+  \begin{titlepage}
+  \centering\normalfont
+  \vspace*{1.7in}
+  {\large\strut\par}
+  \vspace{1.05in}
+  {\fontsize{28}{35}\selectfont #1\par}
+  \vspace{1.1in}
+  {\Large\def\\{\par\vspace{10pt}}#2\par}
+  \vfill
+  \end{titlepage}%
+  \hypersetup{pageanchor=true}}
+\makeatother
+
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\TV}{\operatorname{TV}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\cP}{\mathcal P}
+\newcommand{\cH}{\mathcal H}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\risk}{r_n}
+
+% Short running heads for section titles that do not fit beside their chapter title.
+\shorthead{Embedding the priors in the generic model}{Embedding the priors}
+\shorthead{Proof of \texorpdfstring{\cref{cor:applications}}{the corollary} for these targets}{Proof for these targets}
+\begin{document}
+\frontmatter
+\npptitlepage{Nearly Minimax Rates\\ for Functional Estimation\\ Under Rough Random Design}{P.\ M.\ Aronow\\ Nathan Kallus\\ Patrick Lopatto}
+\begin{authorsnote}
+This paper was written by the authors with the assistance of large language
+models, which were used to suggest mathematical arguments, draft and revise
+exposition, and write code for computational verification. We have taken care
+to supervise this writing to ensure that the proofs meet a minimum standard of
+readability and that previous literature is appropriately cited. However, the
+resulting document remains lacking in exposition and overall coherence. We are
+nonetheless releasing this manuscript on Hexagon to disseminate the result as
+quickly as possible, because we believe it may be of interest to the statistics
+community. We welcome suggestions concerning mathematical corrections, omitted
+citations, and attribution of ideas.
+
+P.L.\ was partially supported by NSF grant DMS-2450004.
+\end{authorsnote}
+\begin{abstractpage}
+We establish nearly minimax bounds for missing-at-random means,
+treatment effects, and expected conditional covariances under rough
+random design.
+For two nuisance functions with average H\"older smoothness
+$s$ in dimension $d$, the minimax root-mean-square error is
+$n^{-2s/d+o(1)}$ when $s<d/4$ and of order $n^{-1/2}$ when $s\ge d/4$.
+The first rate confirms the rough-design exponent suggested by
+higher-order influence function theory. In the generic model with an
+unknown bounded density weight, our upper and lower bounds differ by
+only polylogarithmic factors and identify a leading correction
+$e^{-\kappa\sqrt{\log n}}$ when $s<d/4$, with $\kappa$ explicit in terms
+of $s/d$ and the weight bounds. For the expected conditional covariance,
+the same exponent and the same constant $\kappa$ were obtained
+independently and concurrently by S. Park (arXiv:2610.05006). For models with separately bounded
+density and propensity, we identify the same polynomial exponent and
+the explicit leading correction, with an $o(\sqrt{\log n})$ remainder
+in the logarithm of the risk.
+\end{abstractpage}
+\tableofcontents
+\mainmatter
+\input{body}
+\backmatter
+\setlength{\bibsep}{3pt plus 1pt minus 1pt}
+\begin{thebibliography}{76}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Alpert(1993)]{alpert1993}
+B.~K. Alpert.
+\newblock A class of bases in {$L^2$} for the sparse representation of integral
+  operators.
+\newblock \emph{SIAM Journal on Mathematical Analysis}, 24\penalty0
+  (1):\penalty0 246--262, 1993.
+\newblock \doi{10.1137/0524016}.
+
+\bibitem[Angrist et~al.(1996)Angrist, Imbens, and Rubin]{angristimbensrubin}
+J.~D. Angrist, G.~W. Imbens, and D.~B. Rubin.
+\newblock Identification of causal effects using instrumental variables.
+\newblock \emph{Journal of the American Statistical Association}, 91\penalty0
+  (434):\penalty0 444--455, 1996.
+\newblock \doi{10.1080/01621459.1996.10476902}.
+
+\bibitem[Aronow and Lopatto(2026)]{aronowlopatto}
+P.~M. Aronow and P.~Lopatto.
+\newblock Nearly-minimax variance estimation under rough random design, 2026.
+\newblock \href{https://arxiv.org/abs/2607.13170v3}{arXiv:2607.13170v3}.
+
+\bibitem[Balakrishnan et~al.(2026)Balakrishnan, Kennedy, and
+  Wasserman]{structureagnostic}
+S.~Balakrishnan, E.~H. Kennedy, and L.~Wasserman.
+\newblock The fundamental limits of structure-agnostic functional estimation.
+\newblock \emph{Statistical Science}, 41\penalty0 (3):\penalty0 659--670, 2026.
+\newblock \doi{10.1214/25-STS997}.
+
+\bibitem[Bickel and Ritov(1988)]{bickelritov}
+P.~J. Bickel and Y.~Ritov.
+\newblock Estimating integrated squared density derivatives: Sharp best order
+  of convergence estimates.
+\newblock \emph{Sankhy{\=a}: The Indian Journal of Statistics, Series A},
+  50\penalty0 (3):\penalty0 381--393, 1988.
+
+\bibitem[Birg{\'e} and Massart(1995)]{birgemassart}
+L.~Birg{\'e} and P.~Massart.
+\newblock Estimation of integral functionals of a density.
+\newblock \emph{The Annals of Statistics}, 23\penalty0 (1):\penalty0 11--29,
+  1995.
+\newblock \doi{10.1214/aos/1176324452}.
+
+\bibitem[Bonvini et~al.(2024)Bonvini, Kennedy, Dukes, and
+  Balakrishnan]{bonvini2024smoothsa}
+M.~Bonvini, E.~H. Kennedy, O.~Dukes, and S.~Balakrishnan.
+\newblock Doubly-robust inference and optimality in structure-agnostic models
+  with smoothness, 2024.
+\newblock \href{https://arxiv.org/abs/2405.08525v2}{arXiv:2405.08525v2}.
+
+\bibitem[Cai and Low(2011)]{cailow}
+T.~T. Cai and M.~G. Low.
+\newblock Testing composite hypotheses, {Hermite} polynomials and optimal
+  estimation of a nonsmooth functional.
+\newblock \emph{The Annals of Statistics}, 39\penalty0 (2):\penalty0
+  1012--1041, 2011.
+\newblock \doi{10.1214/10-AOS849}.
+
+\bibitem[Cai et~al.(2009)Cai, Levine, and Wang]{caivariance}
+T.~T. Cai, M.~Levine, and L.~Wang.
+\newblock Variance function estimation in multivariate nonparametric regression
+  with fixed design.
+\newblock \emph{Journal of Multivariate Analysis}, 100\penalty0 (1):\penalty0
+  126--136, 2009.
+\newblock \doi{10.1016/j.jmva.2008.03.007}.
+
+\bibitem[Chen et~al.(2025)Chen, Liu, and Mukherjee]{chenliumukherjee2025}
+X.~Chen, L.~Liu, and R.~Mukherjee.
+\newblock Method-of-moments inference for {GLMs} and doubly robust functionals
+  under proportional asymptotics, 2025.
+\newblock \href{https://arxiv.org/abs/2408.06103v3}{arXiv:2408.06103v3}.
+
+\bibitem[Chernozhukov et~al.(2018)Chernozhukov, Chetverikov, Demirer, Duflo,
+  Hansen, Newey, and Robins]{dml}
+V.~Chernozhukov, D.~Chetverikov, M.~Demirer, E.~Duflo, C.~Hansen, W.~Newey, and
+  J.~Robins.
+\newblock Double/debiased machine learning for treatment and structural
+  parameters.
+\newblock \emph{The Econometrics Journal}, 21\penalty0 (1):\penalty0 C1--C68,
+  2018.
+\newblock \doi{10.1111/ectj.12097}.
+
+\bibitem[Chernozhukov et~al.(2026)Chernozhukov, Hansen, Kallus, Spindler, and
+  Syrgkanis]{causalmlbook}
+V.~Chernozhukov, C.~Hansen, N.~Kallus, M.~Spindler, and V.~Syrgkanis.
+\newblock \emph{Applied Causal Inference Powered by {ML} and {AI}}.
+\newblock Online, 2026.
+\newblock URL \url{https://causalml-book.org/}.
+\newblock Version 0.1.2, 3 May 2026.
+
+\bibitem[Crump et~al.(2006)Crump, Hotz, Imbens, and Mitnik]{crump2006}
+R.~K. Crump, V.~J. Hotz, G.~W. Imbens, and O.~A. Mitnik.
+\newblock Moving the goalposts: Addressing limited overlap in estimation of
+  average treatment effects by changing the estimand.
+\newblock IZA Discussion Paper 2347, Institute for the Study of Labor (IZA),
+  Bonn, 2006.
+\newblock \href{https://docs.iza.org/dp2347.pdf}{docs.iza.org/dp2347.pdf}.
+
+\bibitem[Dobriban et~al.(2026)Dobriban, Mukherjee, Robins, and
+  Wang]{dobriban2026twoscale}
+E.~Dobriban, R.~Mukherjee, J.~M. Robins, and Z.~Wang.
+\newblock Improved variance estimation in homoskedastic nonparametric
+  random-design regression via a two-scale approach, 2026.
+\newblock \href{https://arxiv.org/abs/2609.08783v1}{arXiv:2609.08783v1}.
+
+\bibitem[Evans and Jones(2008)]{evansjones}
+D.~Evans and A.~J. Jones.
+\newblock Non-parametric estimation of residual moments and covariance.
+\newblock \emph{Proceedings of the Royal Society A}, 464\penalty0
+  (2099):\penalty0 2831--2846, 2008.
+\newblock \doi{10.1098/rspa.2007.0195}.
+
+\bibitem[Fr{\"o}lich(2007)]{frolich}
+M.~Fr{\"o}lich.
+\newblock Nonparametric {IV} estimation of local average treatment effects with
+  covariates.
+\newblock \emph{Journal of Econometrics}, 139\penalty0 (1):\penalty0 35--75,
+  2007.
+\newblock \doi{10.1016/j.jeconom.2006.06.004}.
+
+\bibitem[Halmos(1946)]{halmos}
+P.~R. Halmos.
+\newblock The theory of unbiased estimation.
+\newblock \emph{The Annals of Mathematical Statistics}, 17\penalty0
+  (1):\penalty0 34--43, 1946.
+\newblock \doi{10.1214/aoms/1177731020}.
+
+\bibitem[Hern{\'a}n and Robins(2020)]{hernanrobins}
+M.~A. Hern{\'a}n and J.~M. Robins.
+\newblock \emph{Causal Inference: What If}.
+\newblock Chapman \& Hall/CRC, Boca Raton, 2020.
+
+\bibitem[Hoeffding(1948)]{hoeffding}
+W.~Hoeffding.
+\newblock A class of statistics with asymptotically normal distribution.
+\newblock \emph{The Annals of Mathematical Statistics}, 19\penalty0
+  (3):\penalty0 293--325, 1948.
+\newblock \doi{10.1214/aoms/1177730196}.
+
+\bibitem[Hoeffding(1963)]{hoeffding1963}
+W.~Hoeffding.
+\newblock Probability inequalities for sums of bounded random variables.
+\newblock \emph{Journal of the American Statistical Association}, 58\penalty0
+  (301):\penalty0 13--30, 1963.
+\newblock \doi{10.1080/01621459.1963.10500830}.
+
+\bibitem[Imbens and Angrist(1994)]{imbensangrist}
+G.~W. Imbens and J.~D. Angrist.
+\newblock Identification and estimation of local average treatment effects.
+\newblock \emph{Econometrica}, 62\penalty0 (2):\penalty0 467--475, 1994.
+\newblock \doi{10.2307/2951620}.
+
+\bibitem[Ingster and Suslina(2003)]{ingster}
+Yu.~I. Ingster and I.~A. Suslina.
+\newblock \emph{Nonparametric Goodness-of-Fit Testing Under {Gaussian} Models},
+  volume 169 of \emph{Lecture Notes in Statistics}.
+\newblock Springer, New York, 2003.
+\newblock \doi{10.1007/978-0-387-21580-8}.
+
+\bibitem[Jiao et~al.(2015)Jiao, Venkat, Han, and
+  Weissman]{jiaovenkathanweissman}
+J.~Jiao, K.~Venkat, Y.~Han, and T.~Weissman.
+\newblock Minimax estimation of functionals of discrete distributions.
+\newblock \emph{IEEE Transactions on Information Theory}, 61\penalty0
+  (5):\penalty0 2835--2885, 2015.
+\newblock \doi{10.1109/TIT.2015.2412945}.
+
+\bibitem[Jin and Syrgkanis(2025{\natexlab{a}})]{jinsyrgkanis2025}
+J.~Jin and V.~Syrgkanis.
+\newblock Structure-agnostic optimality of doubly robust learning for treatment
+  effect estimation (extended abstract).
+\newblock In \emph{Proceedings of the Thirty Eighth Conference on Learning
+  Theory}, volume 291 of \emph{Proceedings of Machine Learning Research}, pages
+  3159--3160, 2025{\natexlab{a}}.
+\newblock Full paper:
+  \href{https://arxiv.org/abs/2402.14264v4}{arXiv:2402.14264v4}.
+
+\bibitem[Jin and Syrgkanis(2025{\natexlab{b}})]{jinsyrgkanis2026general}
+J.~Jin and V.~Syrgkanis.
+\newblock Sharp structure-agnostic lower bounds for general linear functional
+  estimation, 2025{\natexlab{b}}.
+\newblock \href{https://arxiv.org/abs/2512.17341v2}{arXiv:2512.17341v2}.
+
+\bibitem[Kennedy et~al.(2020)Kennedy, Balakrishnan, and
+  Wasserman]{kennedy2020discussion}
+E.~H. Kennedy, S.~Balakrishnan, and L.~Wasserman.
+\newblock Discussion of ``{On} nearly assumption-free tests of nominal
+  confidence interval coverage for causal parameters estimated by machine
+  learning''.
+\newblock \emph{Statistical Science}, 35\penalty0 (3):\penalty0 540--544, 2020.
+\newblock \doi{10.1214/20-STS796}.
+
+\bibitem[Kerkyacharian and Picard(1996)]{kerkyacharianpicard1996}
+G.~Kerkyacharian and D.~Picard.
+\newblock Estimating nonquadratic functionals of a density using {Haar}
+  wavelets.
+\newblock \emph{The Annals of Statistics}, 24\penalty0 (2):\penalty0 485--507,
+  1996.
+\newblock \doi{10.1214/aos/1032894450}.
+
+\bibitem[Kong and Valiant(2018)]{kongvaliant2018}
+W.~Kong and G.~Valiant.
+\newblock Estimating learnability in the sublinear data regime.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~31, pages 5455--5464, 2018.
+\newblock Extended version:
+  \href{https://arxiv.org/abs/1805.01626v3}{arXiv:1805.01626v3}.
+
+\bibitem[Kraus et~al.(2012)Kraus, Vassilevski, and Zikatanov]{kraus2012}
+J.~K. Kraus, P.~S. Vassilevski, and L.~T. Zikatanov.
+\newblock Polynomial of best uniform approximation to {$1/x$} and smoothing in
+  two-level methods.
+\newblock \emph{Computational Methods in Applied Mathematics}, 12\penalty0
+  (4):\penalty0 448--468, 2012.
+\newblock \doi{10.2478/cmam-2012-0026}.
+
+\bibitem[Last and Penrose(2017)]{lastpenrose}
+G.~Last and M.~Penrose.
+\newblock \emph{Lectures on the {Poisson} Process}, volume~7 of \emph{Institute
+  of Mathematical Statistics Textbooks}.
+\newblock Cambridge University Press, Cambridge, 2017.
+\newblock \doi{10.1017/9781316104477}.
+
+\bibitem[Last and Penrose(2011)]{lastpenrose2011}
+G.~Last and M.~D. Penrose.
+\newblock Poisson process {Fock} space representation, chaos expansion and
+  covariance inequalities.
+\newblock \emph{Probability Theory and Related Fields}, 150\penalty0
+  (3--4):\penalty0 663--690, 2011.
+\newblock \doi{10.1007/s00440-010-0288-5}.
+
+\bibitem[Le~Cam(1986)]{lecam}
+L.~Le~Cam.
+\newblock \emph{Asymptotic Methods in Statistical Decision Theory}.
+\newblock Springer Series in Statistics. Springer, New York, 1986.
+\newblock \doi{10.1007/978-1-4612-4946-7}.
+
+\bibitem[Lepski et~al.(1999)Lepski, Nemirovski, and Spokoiny]{lepski}
+O.~Lepski, A.~Nemirovski, and V.~Spokoiny.
+\newblock On estimation of the {$L_r$} norm of a regression function.
+\newblock \emph{Probability Theory and Related Fields}, 113\penalty0
+  (2):\penalty0 221--253, 1999.
+\newblock \doi{10.1007/s004409970006}.
+
+\bibitem[Levy et~al.(2021)Levy, van~der Laan, Hubbard, and Pirracchio]{levy}
+J.~Levy, M.~van~der Laan, A.~Hubbard, and R.~Pirracchio.
+\newblock A fundamental measure of treatment effect heterogeneity.
+\newblock \emph{Journal of Causal Inference}, 9\penalty0 (1):\penalty0 83--108,
+  2021.
+\newblock \doi{10.1515/jci-2019-0003}.
+
+\bibitem[Li et~al.(2018)Li, Morgan, and Zaslavsky]{limorganzaslavsky}
+F.~Li, K.~L. Morgan, and A.~M. Zaslavsky.
+\newblock Balancing covariates via propensity score weighting.
+\newblock \emph{Journal of the American Statistical Association}, 113\penalty0
+  (521):\penalty0 390--400, 2018.
+\newblock \doi{10.1080/01621459.2016.1260466}.
+
+\bibitem[Li et~al.(2011)Li, Tchetgen~Tchetgen, van~der Vaart, and
+  Robins]{li2011}
+L.~Li, E.~Tchetgen~Tchetgen, A.~van~der Vaart, and J.~M. Robins.
+\newblock Higher order inference on a treatment effect under low regularity
+  conditions.
+\newblock \emph{Statistics \& Probability Letters}, 81\penalty0 (7):\penalty0
+  821--828, 2011.
+\newblock \doi{10.1016/j.spl.2011.02.030}.
+
+\bibitem[Liu et~al.(2017)Liu, Mukherjee, Newey, and Robins]{liu}
+L.~Liu, R.~Mukherjee, W.~K. Newey, and J.~M. Robins.
+\newblock Semiparametric efficient empirical higher order influence function
+  estimators, 2017.
+\newblock \href{https://arxiv.org/abs/1705.07577v5}{arXiv:1705.07577v5}.
+
+\bibitem[Liu et~al.(2020)Liu, Mukherjee, and Robins]{liumukherjeerobins2020}
+L.~Liu, R.~Mukherjee, and J.~M. Robins.
+\newblock Rejoinder: {On} nearly assumption-free tests of nominal confidence
+  interval coverage for causal parameters estimated by machine learning.
+\newblock \emph{Statistical Science}, 35\penalty0 (3):\penalty0 545--554, 2020.
+\newblock \doi{10.1214/20-STS804}.
+
+\bibitem[Liu et~al.(2021)Liu, Mukherjee, Robins, and
+  Tchetgen~Tchetgen]{adaptive}
+L.~Liu, R.~Mukherjee, J.~M. Robins, and E.~Tchetgen~Tchetgen.
+\newblock Adaptive estimation of nonparametric functionals.
+\newblock \emph{Journal of Machine Learning Research}, 22\penalty0
+  (99):\penalty0 1--66, 2021.
+\newblock URL \url{https://jmlr.org/papers/v22/19-892.html}.
+
+\bibitem[Liu et~al.(2026{\natexlab{a}})Liu, Mukherjee, and
+  Robins]{liumukherjeerobins2026}
+L.~Liu, R.~Mukherjee, and J.~M. Robins.
+\newblock On the asymptotic inadmissibility of double machine learning
+  estimators under structure-agnostic models, 2026{\natexlab{a}}.
+\newblock \href{https://arxiv.org/abs/2606.22391v2}{arXiv:2606.22391v2}.
+
+\bibitem[Liu et~al.(2026{\natexlab{b}})Liu, Li, Gu, and Liu]{stabilizedhoif}
+N.~Liu, C.~Li, Y.~Gu, and L.~Liu.
+\newblock Stabilized higher-order influence functions: Statistical theory of a
+  class of bilinear forms, 2026{\natexlab{b}}.
+\newblock \href{https://arxiv.org/abs/2607.04743v3}{arXiv:2607.04743v3}.
+
+\bibitem[Mathar(2006)]{mathar2006}
+R.~J. Mathar.
+\newblock Chebyshev series expansion of inverse polynomials.
+\newblock \emph{Journal of Computational and Applied Mathematics}, 196\penalty0
+  (2):\penalty0 596--607, 2006.
+\newblock \doi{10.1016/j.cam.2005.10.013}.
+
+\bibitem[McClean et~al.(2026)McClean, Balakrishnan, Kennedy, and
+  Wasserman]{mcclean}
+A.~McClean, S.~Balakrishnan, E.~H. Kennedy, and L.~Wasserman.
+\newblock Double cross-fit doubly robust estimators: Beyond series regression.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 88\penalty0 (4):\penalty0 1469--1491, 2026.
+\newblock \doi{10.1093/jrsssb/qkag057}.
+\newblock Theorem numbering refers to
+  \href{https://arxiv.org/abs/2403.15175v3}{arXiv:2403.15175v3}.
+
+\bibitem[McGrath and Mukherjee(2022)]{mcgrath}
+S.~McGrath and R.~Mukherjee.
+\newblock Nuisance function tuning and sample splitting for optimally
+  estimating a doubly robust functional, 2022.
+\newblock To appear in \emph{The Annals of Statistics}.
+  \href{https://arxiv.org/abs/2212.14857v5}{arXiv:2212.14857v5}.
+
+\bibitem[Newey and Robins(2018)]{neweyrobins}
+W.~K. Newey and J.~M. Robins.
+\newblock Cross-fitting and fast remainder rates for semiparametric estimation,
+  2018.
+\newblock \href{https://arxiv.org/abs/1801.09138v1}{arXiv:1801.09138v1}.
+
+\bibitem[Park(2026)]{park}
+S.~Park.
+\newblock Minimax estimation of the expected conditional covariance under
+  bounds on the covariate density, 2026.
+\newblock \href{https://arxiv.org/abs/2610.05006v1}{arXiv:2610.05006v1}.
+
+\bibitem[Richardson and Rotnitzky(2014)]{richardsonrotnitzky}
+T.~S. Richardson and A.~Rotnitzky.
+\newblock Causal etiology of the research of {James M. Robins}.
+\newblock \emph{Statistical Science}, 29\penalty0 (4):\penalty0 459--484, 2014.
+\newblock \doi{10.1214/14-STS505}.
+
+\bibitem[Robins et~al.(2008)Robins, Li, Tchetgen, and van~der Vaart]{hoif2008}
+J.~Robins, L.~Li, E.~Tchetgen, and A.~van~der Vaart.
+\newblock Higher order influence functions and minimax estimation of nonlinear
+  functionals.
+\newblock In \emph{Probability and Statistics: Essays in Honor of {David A.
+  Freedman}}, volume~2 of \emph{IMS Collections}, pages 335--421. Institute of
+  Mathematical Statistics, 2008.
+\newblock \doi{10.1214/193940307000000527}.
+
+\bibitem[Robins et~al.(2009)Robins, Tchetgen~Tchetgen, Li, and van~der
+  Vaart]{robins2009}
+J.~Robins, E.~Tchetgen~Tchetgen, L.~Li, and A.~van~der Vaart.
+\newblock Semiparametric minimax rates.
+\newblock \emph{Electronic Journal of Statistics}, 3:\penalty0 1305--1321,
+  2009.
+\newblock \doi{10.1214/09-EJS479}.
+
+\bibitem[Robins and Ritov(1997)]{robinsritov}
+J.~M. Robins and Y.~Ritov.
+\newblock Toward a curse of dimensionality appropriate ({CODA}) asymptotic
+  theory for semi-parametric models.
+\newblock \emph{Statistics in Medicine}, 16\penalty0 (3):\penalty0 285--319,
+  1997.
+\newblock
+  \doi{10.1002/(SICI)1097-0258(19970215)16:3<285::AID-SIM535>3.0.CO;2-#}.
+
+\bibitem[Robins et~al.(1994)Robins, Rotnitzky, and Zhao]{rrz}
+J.~M. Robins, A.~Rotnitzky, and L.~P. Zhao.
+\newblock Estimation of regression coefficients when some regressors are not
+  always observed.
+\newblock \emph{Journal of the American Statistical Association}, 89\penalty0
+  (427):\penalty0 846--866, 1994.
+\newblock \doi{10.1080/01621459.1994.10476818}.
+
+\bibitem[Robins et~al.(2015)Robins, Li, Liu, Mukherjee, Tchetgen~Tchetgen, and
+  van~der Vaart]{robins}
+J.~M. Robins, L.~Li, L.~Liu, R.~Mukherjee, E.~Tchetgen~Tchetgen, and A.~van~der
+  Vaart.
+\newblock Minimax estimation of a functional on a structured high-dimensional
+  model (corrected version), 2015.
+\newblock \href{https://arxiv.org/abs/1512.02174v3}{arXiv:1512.02174v3}.
+
+\bibitem[Robins et~al.(2017)Robins, Li, Mukherjee, Tchetgen~Tchetgen, and
+  van~der Vaart]{robins2017}
+J.~M. Robins, L.~Li, R.~Mukherjee, E.~Tchetgen~Tchetgen, and A.~van~der Vaart.
+\newblock Minimax estimation of a functional on a structured high-dimensional
+  model.
+\newblock \emph{The Annals of Statistics}, 45\penalty0 (5):\penalty0
+  1951--1987, 2017.
+\newblock \doi{10.1214/16-AOS1515}.
+
+\bibitem[Robinson(1988)]{robinson}
+P.~M. Robinson.
+\newblock Root-{$N$}-consistent semiparametric regression.
+\newblock \emph{Econometrica}, 56\penalty0 (4):\penalty0 931--954, 1988.
+\newblock \doi{10.2307/1912705}.
+
+\bibitem[Rotnitzky et~al.(2021)Rotnitzky, Smucler, and Robins]{mixedbias}
+A.~Rotnitzky, E.~Smucler, and J.~M. Robins.
+\newblock Characterization of parameters with a mixed bias property.
+\newblock \emph{Biometrika}, 108\penalty0 (1):\penalty0 231--238, 2021.
+\newblock \doi{10.1093/biomet/asaa054}.
+
+\bibitem[Rubin(1976)]{rubin}
+D.~B. Rubin.
+\newblock Inference and missing data.
+\newblock \emph{Biometrika}, 63\penalty0 (3):\penalty0 581--592, 1976.
+\newblock \doi{10.1093/biomet/63.3.581}.
+
+\bibitem[S{\'a}nchez-Becerra(2023)]{sanchezbecerra2023}
+A.~S{\'a}nchez-Becerra.
+\newblock Robust inference for the treatment effect variance in experiments
+  using machine learning, 2023.
+\newblock \href{https://arxiv.org/abs/2306.03363v1}{arXiv:2306.03363v1}.
+
+\bibitem[Serfling(1980)]{serfling}
+R.~J. Serfling.
+\newblock \emph{Approximation Theorems of Mathematical Statistics}.
+\newblock Wiley, New York, 1980.
+\newblock \doi{10.1002/9780470316481}.
+
+\bibitem[Shen et~al.(2020)Shen, Gao, Witten, and Han]{shen}
+Y.~Shen, C.~Gao, D.~Witten, and F.~Han.
+\newblock Optimal estimation of variance in nonparametric regression with
+  random design.
+\newblock \emph{The Annals of Statistics}, 48\penalty0 (6):\penalty0
+  3589--3618, 2020.
+\newblock \doi{10.1214/20-AOS1944}.
+
+\bibitem[Song(2026)]{song2026}
+X.~Song.
+\newblock Batched and complete {U}-statistics for trace-polynomial estimation
+  from classical shadows, 2026.
+\newblock \href{https://arxiv.org/abs/2608.22962v1}{arXiv:2608.22962v1}.
+
+\bibitem[Stein and Shakarchi(2003)]{steinshakarchi}
+E.~M. Stein and R.~Shakarchi.
+\newblock \emph{Fourier Analysis: An Introduction}, volume~1 of \emph{Princeton
+  Lectures in Analysis}.
+\newblock Princeton University Press, Princeton, 2003.
+
+\bibitem[Stone(1982)]{stone}
+C.~J. Stone.
+\newblock Optimal global rates of convergence for nonparametric regression.
+\newblock \emph{The Annals of Statistics}, 10\penalty0 (4):\penalty0
+  1040--1053, 1982.
+\newblock \doi{10.1214/aos/1176345969}.
+
+\bibitem[Tian et~al.(2014)Tian, Alizadeh, Gentles, and Tibshirani]{tian2014}
+L.~Tian, A.~A. Alizadeh, A.~J. Gentles, and R.~Tibshirani.
+\newblock A simple method for estimating interactions between a treatment and a
+  large number of covariates.
+\newblock \emph{Journal of the American Statistical Association}, 109\penalty0
+  (508):\penalty0 1517--1532, 2014.
+\newblock \doi{10.1080/01621459.2014.951443}.
+
+\bibitem[Trefethen(2019)]{trefethen}
+L.~N. Trefethen.
+\newblock \emph{Approximation Theory and Approximation Practice}.
+\newblock SIAM, Philadelphia, extended edition, 2019.
+\newblock \doi{10.1137/1.9781611975949}.
+
+\bibitem[Trefethen and Bau(1997)]{trefethenbau}
+L.~N. Trefethen and D.~Bau, III.
+\newblock \emph{Numerical Linear Algebra}.
+\newblock SIAM, Philadelphia, 1997.
+\newblock \doi{10.1137/1.9780898719574}.
+
+\bibitem[Tsybakov(2009)]{tsybakov}
+A.~B. Tsybakov.
+\newblock \emph{Introduction to Nonparametric Estimation}.
+\newblock Springer Series in Statistics. Springer, New York, 2009.
+\newblock \doi{10.1007/b13794}.
+
+\bibitem[van~der Vaart(1998)]{vandervaart}
+A.~W. van~der Vaart.
+\newblock \emph{Asymptotic Statistics}.
+\newblock Cambridge University Press, Cambridge, 1998.
+\newblock \doi{10.1017/CBO9780511802256}.
+
+\bibitem[Vatedka et~al.(2015)Vatedka, Kashyap, and Thangaraj]{vatedka2015}
+S.~Vatedka, N.~Kashyap, and A.~Thangaraj.
+\newblock Secure compute-and-forward in a bidirectional relay.
+\newblock \emph{IEEE Transactions on Information Theory}, 61\penalty0
+  (5):\penalty0 2531--2556, 2015.
+\newblock \doi{10.1109/TIT.2015.2412114}.
+
+\bibitem[Verzelen and Gassiat(2018)]{verzelengassiat2018}
+N.~Verzelen and E.~Gassiat.
+\newblock Adaptive estimation of high-dimensional signal-to-noise ratios.
+\newblock \emph{Bernoulli}, 24\penalty0 (4B):\penalty0 3683--3710, 2018.
+\newblock \doi{10.3150/17-BEJ975}.
+
+\bibitem[Wang and Tchetgen~Tchetgen(2018)]{wangtchetgen}
+L.~Wang and E.~Tchetgen~Tchetgen.
+\newblock Bounded, efficient and multiply robust estimation of average
+  treatment effects using instrumental variables.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 80\penalty0 (3):\penalty0 531--550, 2018.
+\newblock \doi{10.1111/rssb.12262}.
+
+\bibitem[Wang et~al.(2008)Wang, Brown, Cai, and Levine]{wangvariance}
+L.~Wang, L.~D. Brown, T.~T. Cai, and M.~Levine.
+\newblock Effect of mean on variance function estimation in nonparametric
+  regression.
+\newblock \emph{The Annals of Statistics}, 36\penalty0 (2):\penalty0 646--664,
+  2008.
+\newblock \doi{10.1214/009053607000000901}.
+
+\bibitem[Williamson et~al.(2023)Williamson, Gilbert, Simon, and
+  Carone]{williamson}
+B.~D. Williamson, P.~B. Gilbert, N.~R. Simon, and M.~Carone.
+\newblock A general framework for inference on algorithm-agnostic variable
+  importance.
+\newblock \emph{Journal of the American Statistical Association}, 118\penalty0
+  (543):\penalty0 1645--1658, 2023.
+\newblock \doi{10.1080/01621459.2021.2003200}.
+
+\bibitem[Wu and Yang(2016)]{wuyangentropy}
+Y.~Wu and P.~Yang.
+\newblock Minimax rates of entropy estimation on large alphabets via best
+  polynomial approximation.
+\newblock \emph{IEEE Transactions on Information Theory}, 62\penalty0
+  (6):\penalty0 3702--3720, 2016.
+\newblock \doi{10.1109/TIT.2016.2548468}.
+
+\bibitem[Wu and Yang(2019)]{wuyang}
+Y.~Wu and P.~Yang.
+\newblock {Chebyshev} polynomials, moment matching, and optimal estimation of
+  the unseen.
+\newblock \emph{The Annals of Statistics}, 47\penalty0 (2):\penalty0 857--883,
+  2019.
+\newblock \doi{10.1214/17-AOS1665}.
+
+\bibitem[Zeng et~al.(2024)Zeng, Balakrishnan, Han, and Kennedy]{zeng}
+Z.~Zeng, S.~Balakrishnan, Y.~Han, and E.~H. Kennedy.
+\newblock Causal inference with high-dimensional discrete covariates, 2024.
+\newblock \href{https://arxiv.org/abs/2405.00118v3}{arXiv:2405.00118v3}.
+
+\bibitem[Zhang et~al.(2026)Zhang, Liu, and Zhang]{generalhoif}
+Y.~Zhang, L.~Liu, and Z.~Zhang.
+\newblock Higher-order debiased estimators for general treatment models.
+\newblock \emph{Econometric Theory}, pages 1--43, 2026.
+\newblock \doi{10.1017/S0266466626100516}.
+\newblock First View; remark numbering refers to
+  \href{https://arxiv.org/abs/2606.01706v2}{arXiv:2606.01706v2}.
+
+\end{thebibliography}
+\end{document}

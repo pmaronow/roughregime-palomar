@@ -1,0 +1,14 @@
+.lake/
+*.olean
+*.ilean
+*.trace
+*.o
+__pycache__/
+verification-output/
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.idx
+paper/*.ilg
+paper/*.ind
